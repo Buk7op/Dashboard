@@ -11,8 +11,9 @@ import { DataHandlerService } from 'src/app/services/data-handler.service';
 })
 export class CategoriesComponent implements OnInit {
 
-  categories!: Category[];
+  categories?: Category[];
   selectedCategory?: Category;
+  isUncategorized?: Boolean
 
   constructor(private dataHandler: DataHandlerService) { }
 
@@ -21,8 +22,15 @@ export class CategoriesComponent implements OnInit {
   }
 
   showTaskByCategory(category: Category) {
+    this.isUncategorized = false
     this.selectedCategory = category;
     this.dataHandler.fillTasksByCategory(category);
+  }
+
+  showUncategorizedTasks() {
+    this.isUncategorized = true;
+    this.selectedCategory = undefined;
+    this.dataHandler.fillUncategorizedTasks();
   }
 
 }

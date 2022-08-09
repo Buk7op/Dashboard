@@ -27,4 +27,8 @@ export class DataHandlerService {
   fillTasksByCategory(category: Category) {
     this.tasksSubject.next(TestData.tasks.filter(task => task.category === category));
   }
+
+  fillUncategorizedTasks() {
+    this.tasksSubject.next(TestData.tasks.filter(task => task.category === undefined));
+  }
 }
