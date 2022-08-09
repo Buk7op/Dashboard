@@ -3,16 +3,26 @@
         <table class="table table-hover align-items-center mb-0">
             <thead>
                 <tr>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Task</th>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Category</th>
-                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Priority</th>
-                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Completion</th>
-                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Date</th>
-                    
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">#</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Task</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Category</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Priority
+                    </th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Date
+                    </th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                        Completion</th>
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let task of tasks">
+                <tr *ngFor="let task of tasks; let i = index">
+                    <td>
+                        <div class="d-flex px-2 py-1">
+                            <div class="d-flex flex-column justify-content-center">
+                                <h6 class="mb-0 text-sm">{{i + 1}}</h6>
+                            </div>
+                        </div>
+                    </td>
                     <td>
                         <div class="d-flex px-2 py-1">
                             <div class="d-flex flex-column justify-content-center">
@@ -20,10 +30,34 @@
                             </div>
                         </div>
                     </td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td>
+                        <div class="d-flex px-2 py-1 justify-content-center">
+                            <div class="d-flex flex-column justify-content-center">
+                                <h6 class="mb-0 text-sm">{{task.category ? task.category.title : "-"}}</h6>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="d-flex px-2 py-1 justify-content-center">
+                            <div class="d-flex flex-column justify-content-center">
+                                <h6 class="mb-0 text-sm">{{task.priority ? task.priority.title : "-"}}</h6>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="align-middle text-center text-sm">
+                        <div class="d-flex px-2 py-1 justify-content-center">
+                            <div class="d-flex flex-column text-center justify-content-center">
+                                <h6 class="mb-0 text-sm">{{task.date ? (task.date | date) : "-"}}</h6>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="d-flex px-2 py-1 justify-content-center">
+                            <div class="d-flex flex-column justify-content-center">
+                                <h6 class="mb-0 text-sm">{{task.completed}}</h6>
+                            </div>
+                        </div>
+                    </td>
                 </tr>
             </tbody>
         </table>
