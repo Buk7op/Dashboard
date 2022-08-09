@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Category } from 'src/app/model/Category';
 import { DataHandlerService } from 'src/app/services/data-handler.service';
-import { Task } from 'src/app/model/Task';
+
 
 
 @Component({
@@ -16,11 +16,11 @@ export class CategoriesComponent implements OnInit {
   constructor(private dataHandler: DataHandlerService) { }
 
   ngOnInit(): void {
-    this.categories = this.dataHandler.getCategories();
+    this.dataHandler.categoriesSubject.subscribe(category => this.categories = category);
   }
 
-  showTaskByCategory(category: Category): Task[] {
-    return this.dataHandler.getTasksByCategory(category);
+  showTaskByCategory(category: Category) {
+    this.dataHandler.fillTasksByCategory(category);
   }
 
 }
