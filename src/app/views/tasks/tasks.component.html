@@ -1,64 +1,50 @@
 <div class="card-body px-0 pb-2">
     <div class="table-responsive">
-        <table class="table table-hover align-items-center mb-0">
-            <thead>
-                <tr>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">#</th>
-                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Task</th>
-                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Category</th>
-                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Priority
-                    </th>
-                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Date
-                    </th>
-                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                        Completion</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let task of tasks; let i = index" [class.completed]="task.completed">
-                    <td>
-                        <div class="d-flex px-2 py-1">
-                            <div class="d-flex flex-column justify-content-center">
-                                <h6 class="mb-0 text-sm">{{i + 1}}</h6>
-                            </div>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="d-flex px-2 py-1">
-                            <div class="d-flex flex-column justify-content-center">
-                                <h6 class="mb-0 text-sm">{{task.title}}</h6>
-                            </div>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="d-flex px-2 py-1 justify-content-center">
-                            <div class="d-flex flex-column justify-content-center">
-                                <h6 class="mb-0 text-sm">{{task.category ? task.category.title : "-"}}</h6>
-                            </div>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="d-flex px-2 py-1 justify-content-center">
-                            <div class="d-flex flex-column justify-content-center">
-                                <h6 class="mb-0 text-sm">{{task.priority ? task.priority.title : "-"}}</h6>
-                            </div>
-                        </div>
-                    </td>
-                    <td class="align-middle text-center text-sm">
-                        <div class="d-flex px-2 py-1 justify-content-center">
-                            <div class="d-flex flex-column text-center justify-content-center">
-                                <h6 class="mb-0 text-sm">{{task.date ? (task.date | date) : "-"}}</h6>
-                            </div>
-                        </div>
-                    </td>
-                    <td>
-                        <div class = "d-flex px-2 py-1 justify-content-center form-check">
-                                <input type="form-check-input" type ="checkbox" value="" [checked]="task.completed"
-                                (click)="toggleTaskCompleted(task)">
-                        </div>
-                    </td>
-                </tr>
-            </tbody>
+        <table class="table table-hover align-items-center mb-0" [dataSource]="dataSource" mat-table>
+            <ng-container matColumnDef="color">
+                <th *matHeaderCellDef mat-header-cell></th>
+                <td class="col-color" *matCellDef="let task" [style.background-color]="getPriorityColor(task)" mat-cell></td>
+            </ng-container>
+
+            <ng-container matColumnDef="id">
+                <th *matHeaderCellDef mat-header-cell></th>
+                <td class="col-id" *matCellDef="let index = index" >
+                    {{index + 1}}
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="title">
+                <th *matHeaderCellDef mat-header-cell>Task</th>
+                <td class="col-title" *matCellDef="let task" [class.completed]="task.completed" mat-cell>
+                    {{task.title}}
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="date">
+                <th *matHeaderCellDef mat-header-cell>Date</th>
+                <td class="col-date" *matCellDef="let task" [ngClass]="{'completed': task.completed, 'nodate': task.date == null}" mat-cell>
+                    {{task.date | date}}
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="priority">
+                <th *matHeaderCellDef mat-header-cell>Priority</th>
+                <td class="col-priority" *matCellDef="let task" [ngClass]="{'completed': task.completed, 'nopriority': task.priority == null}" mat-cell>
+                    {{task.priority ? task.priority.title : "-"}}
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="category">
+                <th *matHeaderCellDef mat-header-cell>Category</th>
+                <td class="col-category" *matCellDef="let task" [ngClass]="{'completed': task.completed, 'nocategory': task.category == null, 'link': !task.completed && task.category}" mat-cell>
+                    {{task.category ? task.category.title : "-"}}
+                </td>
+            </ng-container>
+
+            <tr *matHeaderRowDef="displayedColumns; " mat-header-row></tr>
+
+            <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
+
         </table>
     </div>
 </div>

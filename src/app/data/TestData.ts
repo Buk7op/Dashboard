@@ -18,10 +18,10 @@ export class TestData {
     ]
 
     static priorities: Priority[] = [
-        {id: 1, title: 'Low', color: '#e5e5e5'},
-        {id: 2, title: 'Medium', color: '#85D1B2'},
-        {id: 3, title: 'High', color: '#F1828D'},
-        {id: 4, title: 'Very high', color: '#F1128D'},
+        {id: 1, title: 'Low', color: '#34eb34'},
+        {id: 2, title: 'Medium', color: '#eb9b34'},
+        {id: 3, title: 'High', color: '#eb5234'},
+        {id: 4, title: 'Very high', color: '#eb3434'},
     ]
 
     static tasks: Task[] = [

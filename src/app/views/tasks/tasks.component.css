@@ -2,3 +2,32 @@
     text-decoration: line-through;
     color: #797977
 }
+
+.col-id {
+    width: 4%;
+    text-align: center;
+}
+
+.col-title {
+    width: 40%;
+}
+
+.col-priority {
+    width: 10%;
+}
+
+.col-category {
+    width: 10%;
+}
+
+.col-select {
+    width: 3%;
+}
+
+.col-color {
+    width: 1% !important;
+}
+
+.col-date {
+    width: 10% !important;
+}
