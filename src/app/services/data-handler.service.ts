@@ -19,6 +19,10 @@ export class DataHandlerService {
     // this.fillTasks();
   }
 
+  searchTasksByCategory(category: Category): Observable<Task[]> {
+    return this.taskDAO.search(category,undefined,undefined,undefined);
+  }
+
   getAllTasks(): Observable<Task[]> {
     return this.taskDAO.getAll();
   }

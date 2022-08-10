@@ -12,6 +12,7 @@ export class AppComponent implements OnInit{
   title = 'Todo-App';
   tasks!: Task[];
   categories!: Category[];
+  selectedCategory?: Category;
 
   constructor(private dataHandler: DataHandlerService) {
     
@@ -22,4 +23,9 @@ export class AppComponent implements OnInit{
     this.dataHandler.getAllCategories().subscribe(category => this.categories = category);
   }
 
+  onSelectCategory(category: Category) {
+    this.selectedCategory = category;
+
+    this.dataHandler.searchTasksByCategory(category).subscribe(tasks => this.tasks = tasks);
+  }
 }

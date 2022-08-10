@@ -79,5 +79,53 @@ export class TestData {
             category: TestData.categories[2],
             date: new Date('2022-08-16')
         },
+        {
+            id: 8, 
+            title: 'Make something', 
+            priority: TestData.priorities[3],
+            completed: false,
+            category: TestData.categories[8],
+            date: new Date('2022-08-15')
+        },
+        {
+            id: 9, 
+            title: 'Make something new', 
+            priority: TestData.priorities[1],
+            completed: false,
+            category: TestData.categories[2],
+            date: new Date('2022-08-09')
+        },
+        {
+            id: 10, 
+            title: 'Make something else', 
+            priority: TestData.priorities[0],
+            completed: false,
+            category: TestData.categories[2],
+            date: new Date('2022-08-16')
+        },
+        {
+            id: 11, 
+            title: 'Make something', 
+            priority: TestData.priorities[3],
+            completed: false,
+            category: TestData.categories[8],
+            date: new Date('2022-08-15')
+        },
+        {
+            id: 12, 
+            title: 'Make something new', 
+            priority: TestData.priorities[1],
+            completed: false,
+            category: TestData.categories[2],
+            date: new Date('2022-08-09')
+        },
+        {
+            id: 13, 
+            title: 'Make something else', 
+            priority: TestData.priorities[0],
+            completed: false,
+            category: TestData.categories[2],
+            date: new Date('2022-08-16')
+        },
     ]
 }
