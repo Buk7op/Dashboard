@@ -33,11 +33,6 @@ export class TasksComponent implements OnInit, AfterViewInit {
     this.addTableObjects();
   }
 
-  addTableObjects() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort; 
-  }
-
   getPriorityColor(task: Task): string {
     if(task.completed) {
       return COMPLETED_COLOR;
@@ -79,5 +74,9 @@ export class TasksComponent implements OnInit, AfterViewInit {
 
   toggleTaskCompleted(task: Task) {
     task.completed = !task.completed;
+  }
+  addTableObjects() {
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort; 
   }
 }
