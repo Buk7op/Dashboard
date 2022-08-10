@@ -6,6 +6,9 @@ import { EditTaskDialogComponent } from "../../dialog/edit-task-dialog/edit-task
 import { MatDialog } from "@angular/material/dialog";
 import { MatTableDataSource } from '@angular/material/table';
 
+const COMPLETED_COLOR = '#F8F9FA';
+const NO_COLOR = '#FFF'
+
 @Component({
   selector: 'app-tasks',
   templateUrl: './tasks.component.html',
@@ -14,11 +17,9 @@ import { MatTableDataSource } from '@angular/material/table';
 export class TasksComponent implements OnInit {
 
 
-  // поля для таблицы (те, что отображают данные из задачи - должны совпадать с названиями переменных класса)
   displayedColumns: string[] = ['color', 'id', 'title', 'date', 'priority', 'category'];
-  dataSource!: MatTableDataSource<Task>; // контейнер - источник данных для таблицы
+  dataSource!: MatTableDataSource<Task>; 
 
-  // ссылки на компоненты таблицы
   @ViewChild(MatPaginator, { static: false }) paginator!: MatPaginator;
   @ViewChild(MatSort, { static: false }) sort!: MatSort;
 
@@ -26,26 +27,19 @@ export class TasksComponent implements OnInit {
   updateTask = new EventEmitter<Task>();
   tasks!: Task[];
 
-  // текущие задачи для отображения на странице
+  
   @Input('tasks')
-  set setTasks(tasks: Task[]) { // напрямую не присваиваем значения в переменную, только через @Input
+  set setTasks(tasks: Task[]) {
     this.tasks = tasks;
     this.fillTable();
   }
 
-  constructor(
-
-
-  ) {
+  constructor() {
   }
 
   ngOnInit() {
-
-    // this.dataHandler.getAllTasks().subscribe(tasks => this.tasks = tasks);
-
-    // датасорс обязательно нужно создавать для таблицы, в него присваивается любой источник (БД, массивы, JSON и пр.)
     this.dataSource = new MatTableDataSource();
-    this.fillTable(); // заполняем таблицы данными (задачи) и всеми метаданными
+    this.fillTable(); 
   }
 
 
@@ -53,30 +47,26 @@ export class TasksComponent implements OnInit {
     task.completed = !task.completed;
   }
 
-  // в зависимости от статуса задачи - вернуть цвет названия
+  
   getPriorityColor(task: Task): string {
-
-    // цвет завершенной задачи
     if (task.completed) {
-      return '#F8F9FA'; // TODO вынести цвета в константы (magic strings, magic numbers)
+      return COMPLETED_COLOR; 
     }
 
     if (task.priority && task.priority.color) {
       return task.priority.color;
     }
-
-    return '#fff'; // TODO вынести цвета в константы (magic strings, magic numbers)
-
+    return NO_COLOR; 
   }
 
-  // показывает задачи с применением всех текущий условий (категория, поиск, фильтры и пр.)
+  
   private fillTable(): void {
 
     if (!this.dataSource) {
       return;
     }
 
-    this.dataSource.data = this.tasks; // обновить источник данных (т.к. данные массива tasks обновились)
+    this.dataSource.data = this.tasks; 
 
     this.addTableObjects();
 
@@ -103,15 +93,12 @@ export class TasksComponent implements OnInit {
       }
 
     };
-
-
   }
 
   private addTableObjects(): void {
-    this.dataSource.sort = this.sort; // компонент для сортировки данных (если необходимо)
-    this.dataSource.paginator = this.paginator; // обновить компонент постраничности (кол-во записей, страниц)
+    this.dataSource.sort = this.sort; 
+    this.dataSource.paginator = this.paginator; 
   }
-
 
 }
 
