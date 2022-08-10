@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Subject } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { CategoryDAOArray } from '../data/dao/implementation/CategoryDAOArray';
+import { TaskDAOArray } from '../data/dao/implementation/TaskDAOArray';
 import { TestData } from '../data/TestData';
 import { Category } from '../model/Category';
 import { Task } from '../model/Task';
@@ -9,26 +11,31 @@ import { Task } from '../model/Task';
 })
 export class DataHandlerService {
 
-  tasksSubject = new BehaviorSubject<Task[]>(TestData.tasks);
-  categoriesSubject = new BehaviorSubject<Category[]>(TestData.categories);
+  
+  private taskDAO = new TaskDAOArray();
+  private categoryDAO = new CategoryDAOArray();
 
   constructor() { 
-    this.fillTasks();
+    // this.fillTasks();
   }
 
-  getCategories(): Category[] {
-    return TestData.categories;
+  getAllTasks(): Observable<Task[]> {
+    return this.taskDAO.getAll();
   }
 
-  fillTasks() {
-    this.tasksSubject.next(TestData.tasks)
+  getAllCategories(): Observable<Category[]> {
+    return this.categoryDAO.getAll();
   }
 
-  fillTasksByCategory(category: Category) {
-    this.tasksSubject.next(TestData.tasks.filter(task => task.category === category));
-  }
+  // fillTasks() {
+  //   this.tasksSubject.next(TestData.tasks)
+  // }
 
-  fillUncategorizedTasks() {
-    this.tasksSubject.next(TestData.tasks.filter(task => task.category === undefined));
-  }
+  // fillTasksByCategory(category: Category) {
+  //   this.tasksSubject.next(TestData.tasks.filter(task => task.category === category));
+  // }
+
+  // fillUncategorizedTasks() {
+  //   this.tasksSubject.next(TestData.tasks.filter(task => task.category === undefined));
+  // }
 }

@@ -1,7 +1,8 @@
-import { Observable } from "rxjs";
+import { Observable, of, scheduled } from "rxjs";
 import { Category } from "src/app/model/Category";
 import { Priority } from "src/app/model/Priority";
 import { Task } from "src/app/model/Task";
+import { TestData } from "../../TestData";
 import { TaskDAO } from "../interface/TaskDAO";
 
 export class TaskDAOArray implements TaskDAO {
@@ -33,7 +34,7 @@ export class TaskDAOArray implements TaskDAO {
         throw new Error("Method not implemented.");
     }
     getAll(): Observable<Task[]> {
-        throw new Error("Method not implemented.");
+        return of(TestData.tasks);
     }
 
 }

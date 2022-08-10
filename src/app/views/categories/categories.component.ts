@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Category } from 'src/app/model/Category';
 import { DataHandlerService } from 'src/app/services/data-handler.service';
 
@@ -10,27 +10,28 @@ import { DataHandlerService } from 'src/app/services/data-handler.service';
   styleUrls: ['./categories.component.css']
 })
 export class CategoriesComponent implements OnInit {
-
-  categories?: Category[];
+  
+  @Input()
+  categories!: Category[];
   selectedCategory?: Category;
   isUncategorized?: Boolean
 
   constructor(private dataHandler: DataHandlerService) { }
 
   ngOnInit(): void {
-    this.dataHandler.categoriesSubject.subscribe(category => this.categories = category);
+    this.dataHandler.getAllCategories().subscribe(category => this.categories = category);
   }
 
   showTaskByCategory(category: Category) {
-    this.isUncategorized = false
-    this.selectedCategory = category;
-    this.dataHandler.fillTasksByCategory(category);
+    // this.isUncategorized = false
+    // this.selectedCategory = category;
+    // this.dataHandler.fillTasksByCategory(category);
   }
 
   showUncategorizedTasks() {
-    this.isUncategorized = true;
-    this.selectedCategory = undefined;
-    this.dataHandler.fillUncategorizedTasks();
+    // this.isUncategorized = true;
+    // this.selectedCategory = undefined;
+    // this.dataHandler.fillUncategorizedTasks();
   }
 
 }
