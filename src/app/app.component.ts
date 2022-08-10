@@ -13,6 +13,7 @@ export class AppComponent implements OnInit{
   tasks!: Task[];
   categories!: Category[];
   selectedCategory?: Category;
+  selectedTask?: Task;
 
   constructor(private dataHandler: DataHandlerService) {
     
@@ -25,7 +26,11 @@ export class AppComponent implements OnInit{
 
   onSelectCategory(category: Category) {
     this.selectedCategory = category;
-
     this.dataHandler.searchTasksByCategory(category).subscribe(tasks => this.tasks = tasks);
+  }
+
+  onUpdateTask(task: Task) {
+    this.selectedTask = task;
+    console.log(task);
   }
 }

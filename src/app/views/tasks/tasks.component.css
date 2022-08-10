@@ -38,3 +38,7 @@
     color: rgba(74, 74, 74, 0.98);
     text-align: center;
 }
+
+.pointer{
+    cursor: pointer;
+}

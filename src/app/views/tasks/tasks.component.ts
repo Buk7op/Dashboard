@@ -25,6 +25,7 @@ export class TasksComponent implements OnInit {
 
   @Output()
   updateTask = new EventEmitter<Task>();
+
   tasks!: Task[];
 
   
@@ -95,6 +96,9 @@ export class TasksComponent implements OnInit {
     };
   }
 
+  onClickTask(task: Task) {
+    this.updateTask.emit(task);
+  }
   private addTableObjects(): void {
     this.dataSource.sort = this.sort; 
     this.dataSource.paginator = this.paginator; 
