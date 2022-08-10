@@ -31,3 +31,10 @@
 .col-date {
     width: 10% !important;
 }
+
+.not-found {
+    margin-top: 30px;
+    font-size: 20px;
+    color: rgba(74, 74, 74, 0.98);
+    text-align: center;
+}

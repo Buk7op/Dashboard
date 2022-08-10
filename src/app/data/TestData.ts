@@ -55,5 +55,29 @@ export class TestData {
             completed: false,
             date: new Date('2024-08-08')
         },
+        {
+            id: 5, 
+            title: 'Make something', 
+            priority: TestData.priorities[3],
+            completed: false,
+            category: TestData.categories[8],
+            date: new Date('2022-08-15')
+        },
+        {
+            id: 6, 
+            title: 'Make something new', 
+            priority: TestData.priorities[1],
+            completed: false,
+            category: TestData.categories[2],
+            date: new Date('2022-08-09')
+        },
+        {
+            id: 7, 
+            title: 'Make something else', 
+            priority: TestData.priorities[0],
+            completed: false,
+            category: TestData.categories[2],
+            date: new Date('2022-08-16')
+        },
     ]
 }
