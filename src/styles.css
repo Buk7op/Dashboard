@@ -8,3 +8,7 @@
 .mat-dialog-container {
     padding: 40px !important;
 }
+
+.red {
+    color: red;
+}

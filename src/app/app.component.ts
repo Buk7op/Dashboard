@@ -12,7 +12,7 @@ export class AppComponent implements OnInit{
   title = 'Todo-App';
   tasks!: Task[];
   categories!: Category[];
-  selectedCategory?: Category;
+  selectedCategory: Category;
   selectedTask?: Task;
 
   constructor(private dataHandler: DataHandlerService) {
@@ -34,6 +34,14 @@ export class AppComponent implements OnInit{
       this.dataHandler.searchTasksByCategory(
         this.selectedCategory!
       ).subscribe(t => this.tasks = t)
-    })
+    });
+  }
+
+  onDeleteTask(task: Task) {
+    this.dataHandler.deleteTask(task).subscribe(() => {
+      this.dataHandler.searchTasksByCategory(
+        this.selectedCategory
+      ).subscribe(t => this.tasks = t)
+    });
   }
 }

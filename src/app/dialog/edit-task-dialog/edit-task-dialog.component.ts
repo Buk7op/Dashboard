@@ -4,6 +4,7 @@ import { DataHandlerService } from 'src/app/services/data-handler.service';
 import { Task } from 'src/app/model/Task';
 import { Category } from 'src/app/model/Category';
 import { Priority } from 'src/app/model/Priority';
+import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-edit-task-dialog',
@@ -46,5 +47,16 @@ export class EditTaskDialogComponent implements OnInit {
 
   onCancel(): void {
     this.dialogRef.close();
+  }
+
+  delete(): void {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {maxWidth: '500px',
+      data: {dialogTitle: 'Confirm the action', message: `Do you really want to delete the task: "${this.task.title}"?`},
+      autoFocus: false});
+    dialogRef.afterClosed().subscribe(result => {
+      if(result) {
+        this.dialogRef.close('delete');
+      }
+    });
   }
 }
