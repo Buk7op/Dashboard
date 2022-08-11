@@ -1,7 +1,8 @@
-import { Observable } from "rxjs";
+import { Observable, of } from "rxjs";
 import { Category } from "src/app/model/Category";
 import { Priority } from "src/app/model/Priority";
 import { Task } from "src/app/model/Task";
+import { TestData } from "../../TestData";
 import { PriorityDAO } from "../interface/PriorityDAO";
 
 export class PriorityDAOArray implements PriorityDAO {
@@ -18,6 +19,6 @@ export class PriorityDAOArray implements PriorityDAO {
         throw new Error("Method not implemented.");
     }
     getAll(): Observable<Priority[]> {
-        throw new Error("Method not implemented.");
+        return of(TestData.priorities);
     }
 }

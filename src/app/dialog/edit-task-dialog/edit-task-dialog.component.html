@@ -8,12 +8,35 @@
             <mat-icon>clear</mat-icon>
         </button>
     </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>Choose category</mat-label>
+
+        <mat-select [(ngModel)]="tmpCategory">
+            <mat-option [value]="null">No category</mat-option>
+            <mat-option *ngFor="let cat of categories" [value]="cat">{{cat.title}}</mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>Choose priority</mat-label>
+
+        <mat-select [(ngModel)]="tmpPriority">
+            <mat-option [value]="null">No priority</mat-option>
+            <mat-option *ngFor="let prior of priorities" [value]="prior">{{prior.title}}</mat-option>
+        </mat-select>
+    </mat-form-field>
+
 </mat-dialog-content>
 
 <mat-dialog-actions>
     <button mat-raised-button color="primary"
             (click)="onConfirm()"
             [disabled]="inputTitle.value.trim().length==0">Save
+    </button>
 
+    <button mat-raised-button color="secondary"
+            (click)="onCancel()"
+            >Cancel
     </button>
 </mat-dialog-actions>
