@@ -27,7 +27,7 @@ export class TestData {
     static tasks: Task[] = [
         {
             id: 1, 
-            title: 'Pour gasoline into the car', 
+            title: 'Repair the car', 
             priority: TestData.priorities[0],
             completed: false,
             category: TestData.categories[9],

@@ -35,7 +35,7 @@ export class TasksComponent implements OnInit {
     this.fillTable();
   }
 
-  constructor() {
+  constructor(private dialog: MatDialog) {
   }
 
   ngOnInit() {
@@ -95,10 +95,16 @@ export class TasksComponent implements OnInit {
 
     };
   }
+  
+  openEditTaskDialog(task:Task): void {
+    const dialogRef = this.dialog.open(EditTaskDialogComponent,{data: [task, 'Edit task'], autoFocus: false});
+    dialogRef.afterClosed().subscribe(result => {});
+  }
 
   onClickTask(task: Task) {
     this.updateTask.emit(task);
   }
+
   private addTableObjects(): void {
     this.dataSource.sort = this.sort; 
     this.dataSource.paginator = this.paginator; 

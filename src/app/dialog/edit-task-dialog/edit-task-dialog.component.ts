@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { DataHandlerService } from 'src/app/services/data-handler.service';
+import { Task } from 'src/app/model/Task';
 
 @Component({
   selector: 'app-edit-task-dialog',
@@ -7,9 +10,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EditTaskDialogComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private dialogRef: MatDialogRef<EditTaskDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) private data: [Task, string],
+    private dataHandler: DataHandlerService,
+    private dialog: MatDialog
+  ) { }
+  
+  dialogTitle?: string;
+  task?: Task;
 
   ngOnInit(): void {
+    this.task = this.data[0];
+    this.dialogTitle = this.data[1];
   }
 
 }
