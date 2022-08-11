@@ -10,13 +10,18 @@ import { Task } from '../model/Task';
   providedIn: 'root'
 })
 export class DataHandlerService {
-
+  // fillTasksByCategory(category: Category) {
+  //   this.tasksSubject.next(TestData.tasks.filter(task => task.category === category));
+  // }
+  // fillUncategorizedTasks() {
+  //   this.tasksSubject.next(TestData.tasks.filter(task => task.category === undefined));
+  // }
   
   private taskDAO = new TaskDAOArray();
   private categoryDAO = new CategoryDAOArray();
 
   constructor() { 
-    // this.fillTasks();
+    
   }
 
   searchTasksByCategory(category: Category): Observable<Task[]> {
@@ -31,15 +36,9 @@ export class DataHandlerService {
     return this.categoryDAO.getAll();
   }
 
-  // fillTasks() {
-  //   this.tasksSubject.next(TestData.tasks)
-  // }
+  updateTask(task: Task): Observable<Task> {
+    return this.taskDAO.update(task);
+  }
 
-  // fillTasksByCategory(category: Category) {
-  //   this.tasksSubject.next(TestData.tasks.filter(task => task.category === category));
-  // }
-
-  // fillUncategorizedTasks() {
-  //   this.tasksSubject.next(TestData.tasks.filter(task => task.category === undefined));
-  // }
+  
 }
