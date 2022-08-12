@@ -82,3 +82,8 @@
 .link {
     cursor: pointer;
 }
+
+.badge:hover,
+.badge:focus {
+  color: #EC407A;
+}

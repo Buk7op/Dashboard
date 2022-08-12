@@ -1,3 +1,7 @@
-.pointer{
+.pointer {
     cursor: pointer;
+}
+
+.all-category-title {
+    height: 4.875rem;
 }

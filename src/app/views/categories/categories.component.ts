@@ -21,7 +21,7 @@ export class CategoriesComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    
+    this.selectedCategory = null!;
   }
 
   showTaskByCategory(category: Category) {
