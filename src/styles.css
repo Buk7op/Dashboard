@@ -16,3 +16,8 @@
 .green {
     color: green;
 }
+
+.mat-checkbox.mat-accent .mat-checkbox-inner-container {
+    margin: 10px auto 0 auto;
+    
+}
