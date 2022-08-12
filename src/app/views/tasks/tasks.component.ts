@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { Task } from 'src/app/model/Task';
 import { MatPaginator } from "@angular/material/paginator";
 import { MatSort } from "@angular/material/sort";
@@ -16,7 +16,7 @@ const NO_COLOR = '#FFF'
   templateUrl: './tasks.component.html',
   styleUrls: ['./tasks.component.css']
 })
-export class TasksComponent implements OnInit {
+export class TasksComponent implements OnInit, AfterViewInit {
 
 
   displayedColumns: string[] = ['color', 'id', 'title', 'date', 'priority', 'category', 'select', 'operations'];
@@ -49,6 +49,11 @@ export class TasksComponent implements OnInit {
     this.fillTable();
   }
 
+  ngAfterViewInit() {
+    this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
+  }
+
 
   onToggleStatus(task: Task) {
     task.completed = !task.completed;
@@ -75,8 +80,6 @@ export class TasksComponent implements OnInit {
     }
 
     this.dataSource.data = this.tasks;
-
-    this.addTableObjects();
 
 
     this.dataSource.sortingDataAccessor = (task, colName) => {
@@ -146,10 +149,7 @@ export class TasksComponent implements OnInit {
     this.selectCategory.emit(category);
   }
 
-  private addTableObjects(): void {
-    this.dataSource.sort = this.sort;
-    this.dataSource.paginator = this.paginator;
-  }
+  
 
 }
 

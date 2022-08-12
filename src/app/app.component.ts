@@ -25,7 +25,6 @@ export class AppComponent implements OnInit{
   }
 
   onSelectCategory(category: Category) {
-    console.log('click')
     this.selectedCategory = category;
     this.dataHandler.searchTasksByCategory(category).subscribe(tasks => this.tasks = tasks);
   }

@@ -38,7 +38,7 @@
             <ng-container matColumnDef="category">
                 <th *matHeaderCellDef mat-header-cell mat-sort-header>Category</th>
                 <td class="col-category" *matCellDef="let task" [ngClass]="{'completed': task.completed, 'nocategory': task.category == null, 'link': task.category}" 
-                (click)="!task.completed && task.category && onSelectCategory(task.category)"
+                (click)="task.category && onSelectCategory(task.category)"
                 mat-cell>
                 <span class="badge badge-sm bg-gradient-secondary">{{task.category ? task.category.title : "-"}}</span>
                 </td>
