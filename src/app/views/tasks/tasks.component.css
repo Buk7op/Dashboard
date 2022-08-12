@@ -3,8 +3,11 @@
     color: #797977
 }
 
+.table {
+    width: 100% !important;
+}
 .col-id {
-    width: 4%;
+    width: 1%;
     text-align: center;
 }
 
@@ -25,11 +28,12 @@
 }
 
 .col-color {
-    width: 1% !important;
+    width: 0.2% !important;
+    padding: 0% !important;
 }
 
 .col-date {
-    width: 10% !important;
+    width: 10%;
 }
 
 .not-found {

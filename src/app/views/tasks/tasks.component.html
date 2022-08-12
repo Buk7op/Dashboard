@@ -2,7 +2,7 @@
     <div class="table-responsive" *ngIf="tasks && tasks.length > 0">
         <table class="table table-hover align-items-center mb-0" [dataSource]="dataSource" mat-table matSort>
             <ng-container matColumnDef="color">
-                <th *matHeaderCellDef mat-header-cell></th>
+                <th class="col-color" *matHeaderCellDef mat-header-cell></th>
                 <td class="col-color" *matCellDef="let task" [style.background-color]="getPriorityColor(task)" mat-cell></td>
             </ng-container>
 
@@ -24,7 +24,7 @@
             <ng-container matColumnDef="date">
                 <th *matHeaderCellDef mat-header-cell mat-sort-header>Date</th>
                 <td class="col-date" *matCellDef="let task" [ngClass]="{'completed': task.completed, 'nodate': task.date == null}" mat-cell>
-                    {{task.date | date}}
+                    {{task.date | taskDate}}
                 </td>
             </ng-container>
 
