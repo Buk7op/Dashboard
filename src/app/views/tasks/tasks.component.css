@@ -24,7 +24,17 @@
 }
 
 .col-select {
+    text-align: center !important;
+    vertical-align: middle !important;
     width: 3%;
+}
+
+.mat-checkbox.mat-accent .mat-checkbox-inner-container {
+    margin: 2px;
+}
+
+.col-operations {
+    width: 2%;
 }
 
 .col-color {
@@ -45,4 +55,26 @@
 
 .pointer{
     cursor: pointer;
+}
+
+.delete-icon {
+    cursor: pointer;
+    color: #ea6561;
+    font-size: 18px;
+    margin-left: 3px;
+    margin-right: 3px;
+}
+
+.edit-icon {
+    cursor: pointer;
+    color: #9A9A9A;
+    font-size: 18px;
+    margin-left: 3px;
+    margin-right: 3px;
+}
+
+.mat-header-cell {
+    font: 1.063rem;
+    color: linear-gradient(195deg, #EC407A 0%, #D81B60 100%);
+    font-weight: normal;
 }
