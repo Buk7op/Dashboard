@@ -78,3 +78,7 @@
     color: linear-gradient(195deg, #EC407A 0%, #D81B60 100%);
     font-weight: normal;
 }
+
+.link {
+    cursor: pointer;
+}

@@ -6,6 +6,7 @@ import { EditTaskDialogComponent } from "../../dialog/edit-task-dialog/edit-task
 import { MatDialog } from "@angular/material/dialog";
 import { MatTableDataSource } from '@angular/material/table';
 import { ConfirmDialogComponent } from 'src/app/dialog/confirm-dialog/confirm-dialog.component';
+import { Category } from 'src/app/model/Category';
 
 const COMPLETED_COLOR = '#F8F9FA';
 const NO_COLOR = '#FFF'
@@ -28,6 +29,8 @@ export class TasksComponent implements OnInit {
   updateTask = new EventEmitter<Task>();
   @Output()
   deleteTask = new EventEmitter<Task>();
+  @Output()
+  selectCategory = new EventEmitter<Category>();
 
   tasks!: Task[];
 
@@ -137,6 +140,10 @@ export class TasksComponent implements OnInit {
 
   onClickTask(task: Task) {
     this.updateTask.emit(task);
+  }
+
+  onSelectCategory(category: Category) {
+    this.selectCategory.emit(category);
   }
 
   private addTableObjects(): void {
