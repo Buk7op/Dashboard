@@ -30,17 +30,22 @@
 </mat-dialog-content>
 
 <mat-dialog-actions>
-    <button mat-raised-button color="primary"
-            (click)="onConfirm()"
+    <div class="col-md-5 col-12">
+        <button mat-raised-button color="primary" (click)="onConfirm()"
             [disabled]="inputTitle.value.trim().length==0">Save
-    </button>
+        </button>
 
-    <button mat-raised-button color="secondary"
-            (click)="onCancel()"
-            >Cancel
-    </button>
-    <button mat-button class="red"
-            (click)="delete()"
-            >Delete task
-    </button>
+        <button mat-raised-button color="secondary" (click)="onCancel()">Cancel
+        </button>
+    </div>
+
+    <div class="col-md-7 col-12 text-right">
+        <button mat-button class="green" *ngIf="task.completed" (click)="open()">Open task
+        </button>
+        <button mat-button class="green" *ngIf="!task.completed" (click)="close()">Close task
+        </button>
+        <button mat-button class="red" (click)="delete()">Delete task
+        </button>
+    </div>
+
 </mat-dialog-actions>

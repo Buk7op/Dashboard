@@ -12,10 +12,10 @@ export class TaskDAOArray implements TaskDAO {
     }
     searchTasksByCategory(category: Category): Task[] {
         let allTasks = TestData.tasks;
-        if(category === undefined){
-            return allTasks;
+        if (category != null) {
+            allTasks = allTasks.filter(todo => todo.category === category);
         }
-        return allTasks.filter(task => task.category === category);
+        return allTasks;
     }
     getCompletedCountInCategory(category: Category): Observable<number> {
         throw new Error("Method not implemented.");
@@ -35,7 +35,7 @@ export class TaskDAOArray implements TaskDAO {
     delete(id: number): Observable<Task> {
         const task = TestData.tasks.find(t => t.id === id);
         if(task) {
-            console.log(TestData.tasks.splice(TestData.tasks.indexOf(task)), 1);
+            TestData.tasks.splice(TestData.tasks.indexOf(task), 1);
             return of(task);
         }
         throw new Error("Task not found");
