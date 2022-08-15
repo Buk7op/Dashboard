@@ -7,9 +7,17 @@
             </a>
         </li>
         <hr class="horizontal light mt-0 mb-2">
-        <li class="nav-item pointer" *ngFor="let category of categories" (click)="showTaskByCategory(category)">
+        <li class="nav-item pointer" *ngFor="let category of categories; let index = index"
+         (click)="showTaskByCategory(category)"
+         (mouseleave)="showEditIcon(null!)"
+         (mouseenter)="showEditIcon(index)">
             <a class="nav-link" [class.bg-gradient-primary]="category === selectedCategory">
-                <span class="nav-link-text ms-1">{{category.title}}</span>
+                <span class="categoty-title">{{category.title}}</span>
+                <span class="edit-category-icon-area">
+                    <mat-icon *ngIf="indexMouseMove === index"
+                    (click)="$event.stopPropagation(); openEditDialog(category)"
+                    class="edit-category-icon">edit</mat-icon>
+                </span>
             </a>
         </li>
     </ul>

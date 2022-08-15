@@ -1,4 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { EditCategoryDialogComponent } from 'src/app/dialog/edit-category-dialog/edit-category-dialog.component';
 import { Category } from 'src/app/model/Category';
 
 @Component({
@@ -13,12 +15,17 @@ export class CategoriesComponent implements OnInit {
 
   @Output()
   selectCategory = new EventEmitter<Category>();
+  @Output()
+  updateCategory = new EventEmitter<Category>();
+  @Output()
+  deleteCategory = new EventEmitter<Category>();
 
   @Input()
   selectedCategory: Category;
+  indexMouseMove: number;
   
 
-  constructor() { }
+  constructor(private dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.selectedCategory = null!;
@@ -32,6 +39,23 @@ export class CategoriesComponent implements OnInit {
     this.selectCategory.emit(this.selectedCategory);
   }
 
+  showEditIcon(index: number) {
+    this.indexMouseMove = index;
+  }
   
+  openEditDialog(category: Category) {
+    const dialogRef = this.dialog.open(EditCategoryDialogComponent, { data: [category.title, 'Edit category'], width: '400px' });
+    dialogRef.afterClosed().subscribe(result => {
+      switch (result) {
+        case "delete":
+          this.deleteCategory.emit(category);
+          break;
+        case typeof(result) === 'string':
+          category.title = result as string;
+          this.updateCategory.emit(category);
+          break;
+      }
+    });
+  }
 
 }

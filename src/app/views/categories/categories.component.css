@@ -5,3 +5,19 @@
 .all-category-title {
     height: 4.875rem;
 }
+
+.edit-category-icon {
+    color: #dadada;
+}
+
+.edit-category-icon-area {
+    width: 15%;
+    display: inline-block;
+    text-align: right;
+    font-size: 13px;
+}
+
+.category-title {
+    width: 70%;
+    display: inline-block;
+}

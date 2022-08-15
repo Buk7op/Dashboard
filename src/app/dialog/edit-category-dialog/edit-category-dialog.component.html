@@ -1,0 +1,35 @@
+<mat-dialog-content>
+    <p mat-dialog-title>{{dialogTitle}}</p>
+    <mat-form-field>
+        <mat-label>Title (15 characters)</mat-label>
+        <input
+        #inputTitle
+        matInput maxlength="15"
+        [(ngModel)]="categoryTitle"
+        (keydown.enter)="onConfirm()"/>
+        <button *ngIf="categoryTitle.trim().length > 0"
+            class="clear-icon"
+            mat-button matSuffix mat-icon-button aria-label="Clear"
+            (click)="categoryTitle=''">
+            <mat-icon>clear</mat-icon>
+        </button>
+    </mat-form-field>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+    <div class="col-12 text-center">
+        <button mat-raised-button color="primary"
+        (click)="onConfirm()"
+        [disabled]="inputTitle.value.trim().length == 0">
+            Save
+        </button>
+        <button mat-raised-button
+        (click)="onCancel()">
+            Cancel
+        </button>
+        <button *ngIf="canDelete" mat-button
+        (click)="delete()" class="red">
+            Delete
+        </button>
+    </div>
+</mat-dialog-actions>
