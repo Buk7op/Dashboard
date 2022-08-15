@@ -21,8 +21,8 @@ export class DataHandlerService {
     
   }
 
-  searchTasksByCategory(category: Category): Observable<Task[]> {
-    return this.taskDAO.search(category,undefined,undefined,undefined);
+  searchTasks(category: Category, title: string, status: boolean, priority: Priority): Observable<Task[]> {
+    return this.taskDAO.search(category,title,status,priority);
   }
 
   getAllTasks(): Observable<Task[]> {

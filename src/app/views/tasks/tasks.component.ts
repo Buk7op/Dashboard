@@ -7,6 +7,7 @@ import { MatDialog } from "@angular/material/dialog";
 import { MatTableDataSource } from '@angular/material/table';
 import { ConfirmDialogComponent } from 'src/app/dialog/confirm-dialog/confirm-dialog.component';
 import { Category } from 'src/app/model/Category';
+import { Priority } from 'src/app/model/Priority';
 
 const COMPLETED_COLOR = '#F8F9FA';
 const NO_COLOR = '#FFF'
@@ -31,9 +32,17 @@ export class TasksComponent implements OnInit, AfterViewInit {
   deleteTask = new EventEmitter<Task>();
   @Output()
   selectCategory = new EventEmitter<Category>();
+  @Output()
+  filterByTitle = new EventEmitter<string>();
+  @Output()
+  filterByStatus = new EventEmitter<boolean>();
+  @Output()
+  filterByPriority = new EventEmitter<Priority>();
 
   tasks!: Task[];
-
+  searchTaskText: string;
+  selectedStatusFilter: boolean = null!;
+  selectedPriorityFilter: Priority = null!;
 
   @Input('tasks')
   set setTasks(tasks: Task[]) {
@@ -71,7 +80,24 @@ export class TasksComponent implements OnInit, AfterViewInit {
     }
     return NO_COLOR;
   }
+  
+  onFilterByTitle(){
+    this.filterByTitle.emit(this.searchTaskText)
+  }
 
+  onFilterByStatus(status: boolean){
+    if(status !== this.selectedStatusFilter) {
+      this.selectedStatusFilter = status;
+      this.filterByStatus.emit(this.selectedStatusFilter);
+    }
+  }
+
+  onFilterByPriority(priority: Priority){
+    if(priority !== this.selectedPriorityFilter) {
+      this.selectedPriorityFilter = priority;
+      this.filterByPriority.emit(this.selectedPriorityFilter);
+    }
+  }
 
   private fillTable(): void {
 

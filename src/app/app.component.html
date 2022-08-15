@@ -222,6 +222,9 @@
           <app-tasks  (updateTask)="onUpdateTask($event)"
                       (deleteTask)="onDeleteTask($event)"
                       (selectCategory)="onSelectCategory($event)"
+                      (filterByStatus)="onFilterTaskByStatus($event)"
+                      (filterByTitle)="onFilterTaskByTitle($event)"
+                      (filterByPriority)="onFilterTaskByPriority($event)"
                       [tasks]="tasks"></app-tasks>
         </div>
       </div>
