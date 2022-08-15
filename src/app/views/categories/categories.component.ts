@@ -46,15 +46,16 @@ export class CategoriesComponent implements OnInit {
   openEditDialog(category: Category) {
     const dialogRef = this.dialog.open(EditCategoryDialogComponent, { data: [category.title, 'Edit category'], width: '400px' });
     dialogRef.afterClosed().subscribe(result => {
-      switch (result) {
-        case "delete":
+        if(result === 'delete') {
           this.deleteCategory.emit(category);
-          break;
-        case typeof(result) === 'string':
+          return;
+        }
+
+        if(typeof(result) === 'string') {
           category.title = result as string;
           this.updateCategory.emit(category);
-          break;
-      }
+          return;
+        }
     });
   }
 
