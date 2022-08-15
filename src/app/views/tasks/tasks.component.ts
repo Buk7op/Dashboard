@@ -59,8 +59,7 @@ export class TasksComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.dataSource.sort = this.sort;
-    this.dataSource.paginator = this.paginator;
+    this.addTableObjects();
   }
 
 
@@ -107,6 +106,7 @@ export class TasksComponent implements OnInit, AfterViewInit {
 
     this.dataSource.data = this.tasks;
 
+    this.addTableObjects();
 
     this.dataSource.sortingDataAccessor = (task, colName) => {
 
@@ -130,6 +130,10 @@ export class TasksComponent implements OnInit, AfterViewInit {
       }
 
     };
+  }
+  addTableObjects() {
+    this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
   }
 
   openEditTaskDialog(task: Task): void {
