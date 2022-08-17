@@ -8,6 +8,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { ConfirmDialogComponent } from 'src/app/dialog/confirm-dialog/confirm-dialog.component';
 import { Category } from 'src/app/model/Category';
 import { Priority } from 'src/app/model/Priority';
+import { OperationType } from 'src/app/dialog/OperationType';
 
 const COMPLETED_COLOR = '#F8F9FA';
 const NO_COLOR = '#FFF'
@@ -143,7 +144,7 @@ export class TasksComponent implements OnInit, AfterViewInit {
   }
 
   openEditTaskDialog(task: Task): void {
-    const dialogRef = this.dialog.open(EditTaskDialogComponent, { data: [task, 'Edit task'], autoFocus: false });
+    const dialogRef = this.dialog.open(EditTaskDialogComponent, { data: [task, 'Edit task', OperationType.EDIT], autoFocus: false });
     dialogRef.afterClosed().subscribe(result => {
       switch (result) {
         case "delete":
@@ -168,7 +169,7 @@ export class TasksComponent implements OnInit, AfterViewInit {
     const task = new Task(null!, '', false, null!, this.selectedCategory);
     const dialogRef = this.dialog.open(EditTaskDialogComponent, {
       maxWidth: '500px',
-      data: [task, 'Adding a task'],
+      data: [task, 'Adding a task', OperationType.ADD],
       autoFocus: false
     });
     dialogRef.afterClosed().subscribe(result => {

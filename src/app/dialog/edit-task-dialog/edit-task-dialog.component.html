@@ -11,7 +11,6 @@
 
     <mat-form-field>
         <mat-label>Choose category</mat-label>
-
         <mat-select [(ngModel)]="tmpCategory">
             <mat-option [value]="null">No category</mat-option>
             <mat-option *ngFor="let cat of categories" [value]="cat">{{cat.title}}</mat-option>
@@ -20,7 +19,6 @@
 
     <mat-form-field>
         <mat-label>Choose priority</mat-label>
-
         <mat-select [(ngModel)]="tmpPriority">
             <mat-option [value]="null">No priority</mat-option>
             <mat-option *ngFor="let prior of priorities" [value]="prior">{{prior.title}}</mat-option>
@@ -52,7 +50,7 @@
         </button>
     </div>
 
-    <div class="col-md-7 col-12 text-right">
+    <div class="col-md-7 col-12 text-right" *ngIf="isEdit()">
         <button mat-button class="green" *ngIf="task.completed" (click)="open()">Open task
         </button>
         <button mat-button class="green" *ngIf="!task.completed" (click)="close()">Close task
