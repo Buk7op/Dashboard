@@ -1,7 +1,16 @@
 
 <div class="collapse navbar-collapse w-auto ps" id="sidenav-collapse-main">
+    <div class="pt-2">
+        <span class="nav-title">Categories</span>
+        <span class="add-icon-area">
+            <button mat-icon-button class="add-icon">
+                <mat-icon>add</mat-icon>
+            </button>
+        </span>
+    </div>
+    <hr class="horizontal light mt-0 mb-2">
     <ul class="navbar-nav">
-        <li class="nav-item category pt-3" (click)="showTaskByCategory(null!)"  >
+        <li class="nav-item category" (click)="showTaskByCategory(null!)"  >
             <a class="nav-link pointer" [class.bg-gradient-primary]="selectedCategory === null">
                 <span class="nav-link-text ms-1">All</span>
             </a>

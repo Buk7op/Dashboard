@@ -21,3 +21,31 @@
     width: 70%;
     display: inline-block;
 }
+
+.span.add-icon-area {
+    width: 5%;
+    display: inline-block;
+    text-align: left;
+    color: #fff;
+}
+
+#categories {
+    width: 100%;
+    overflow-x: hidden;
+}
+
+.nav-title {
+    padding-left: 10%;
+    width: 80%;
+    color: #fff;
+    display: inline-block;
+    font-size: 20px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.add-icon{
+    cursor: pointer;
+    font-size: 20px;
+    vertical-align: middle;
+}

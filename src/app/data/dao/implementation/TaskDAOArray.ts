@@ -53,7 +53,15 @@ export class TaskDAOArray implements TaskDAO {
         throw new Error("Task not found");
     }
     add(entity: Task): Observable<Task> {
-        throw new Error("Method not implemented.");
+        if(entity.id === null || entity.id === 0){
+            entity.id = this.getLastIdTask();
+        }
+        TestData.tasks.push(entity);
+        return of(entity);
+    }
+
+    getLastIdTask(): number {
+        return Math.max.apply(Math, TestData.tasks.map(task => task.id)) + 1
     }
 
     update(entity: Task): Observable<Task> {

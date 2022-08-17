@@ -28,18 +28,20 @@ export class TasksComponent implements OnInit, AfterViewInit {
 
   @Input('tasks')
   set setTasks(tasks: Task[]) {
-    console.log('input tasks')
     this.tasks = tasks;
     this.fillTable();
   }
-
   @Input()
   priorities: Priority[];
+  @Input()
+  selectedCategory: Category;
 
   @Output()
   updateTask = new EventEmitter<Task>();
   @Output()
   deleteTask = new EventEmitter<Task>();
+  @Output()
+  addTask = new EventEmitter<Task>();
   @Output()
   selectCategory = new EventEmitter<Category>();
   @Output()
@@ -158,6 +160,20 @@ export class TasksComponent implements OnInit, AfterViewInit {
         case result as Task:
           this.updateTask.emit(result);
           break;
+      }
+    });
+  }
+
+  openAddTaskDialog() {
+    const task = new Task(null!, '', false, null!, this.selectedCategory);
+    const dialogRef = this.dialog.open(EditTaskDialogComponent, {
+      maxWidth: '500px',
+      data: [task, 'Adding a task'],
+      autoFocus: false
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.addTask.emit(task);
       }
     });
   }

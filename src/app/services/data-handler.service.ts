@@ -25,6 +25,10 @@ export class DataHandlerService {
     return this.taskDAO.search(category,title,status,priority);
   }
 
+  addTask(task: Task): Observable<Task> {
+    return this.taskDAO.add(task);
+  }
+
   getAllTasks(): Observable<Task[]> {
     return this.taskDAO.getAll();
   }
