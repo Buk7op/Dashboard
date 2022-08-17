@@ -26,30 +26,33 @@
     </div>
 
     <div class="col-md-3 col-sm-12 text-right">
+        <mat-form-field>
+            <mat-select [value]="selectedPriorityFilter" (valueChange)="onFilterByPriority($event)" placeholder="Filter by priority">
+                <mat-option [value]="null">All</mat-option>
+                <mat-option *ngFor="let priority of priorities" [value]="priority">{{priority.title}}</mat-option>
+            </mat-select>
+            <button *ngIf="selectedPriorityFilter != null"
+                    class="clear-icon size25"
+                    matSuffix mat-button mat-icon-button aria-label="Clear"
+                    (click)="$event.stopPropagation(); onFilterByPriority(null!); searchTaskText=''; onFilterByTitle()">
+                    <mat-icon>clear</mat-icon>
+                </button>
+        </mat-form-field>
+    </div>
+
+    <div class="col-md-3 col-sm-12 text-right">
         <div class="row">
             <div class="text-left col-6">
-                <button *ngIf="selectedStatusFilter != null || (searchTaskText != null && searchTaskText.trim() != '')"
+                <button *ngIf="selectedStatusFilter != null || (searchTaskText != null && searchTaskText.trim() != '') || selectedPriorityFilter != null"
                     matSuffix mat-button aria-label="Clear"
-                    (click)="$event.stopPropagation(); onFilterByStatus(null!); searchTaskText=''; onFilterByTitle()">Clear
+                    (click)="$event.stopPropagation(); 
+                    onFilterByStatus(null!); searchTaskText='';
+                    onFilterByTitle();
+                    onFilterByPriority(null!)">Clear
                     filters
                 </button>
             </div>
         </div>
-    </div>
-
-    <div class="col-md-3 col-sm-12 text-right">
-        <mat-form-field>
-            <mat-select #priorityFilter (valueChange)="onFilterByPriority($event)" [value]="selectedPriorityFilter"
-                placeholder="Filter by status">
-                <mat-option [value]="null">All</mat-option>
-                <mat-option [value]="">Done</mat-option>
-                <mat-option [value]="false">In progress</mat-option>
-            </mat-select>
-            <button (click)="$event.stopPropagation(); onFilterByStatus(null!)" *ngIf="selectedStatusFilter != null"
-                aria-label="Clear" class="clear-icon size25 gray" mat-button mat-icon-button matSuffix>
-                <mat-icon>clear</mat-icon>
-            </button>
-        </mat-form-field>
     </div>
 </div>
 <div class="px-0 py-2">
@@ -128,8 +131,8 @@
             <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
 
         </table>
-        <mat-paginator [pageSizeOptions]="[10, 20, 50, 100]" showFirstLastButtons></mat-paginator>
     </div>
+    <mat-paginator [pageSizeOptions]="[10, 20, 50, 100]" showFirstLastButtons></mat-paginator>
     <div *ngIf="tasks && tasks.length === 0">
         <h6 class="not-found">There are no task yet</h6>
     </div>

@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { AfterContentInit, AfterViewInit, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { Task } from 'src/app/model/Task';
 import { MatPaginator } from "@angular/material/paginator";
 import { MatSort } from "@angular/material/sort";
@@ -26,6 +26,16 @@ export class TasksComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator, { static: false }) paginator!: MatPaginator;
   @ViewChild(MatSort, { static: false }) sort!: MatSort;
 
+  @Input('tasks')
+  set setTasks(tasks: Task[]) {
+    console.log('input tasks')
+    this.tasks = tasks;
+    this.fillTable();
+  }
+
+  @Input()
+  priorities: Priority[];
+
   @Output()
   updateTask = new EventEmitter<Task>();
   @Output()
@@ -44,12 +54,6 @@ export class TasksComponent implements OnInit, AfterViewInit {
   selectedStatusFilter: boolean = null!;
   selectedPriorityFilter: Priority = null!;
 
-  @Input('tasks')
-  set setTasks(tasks: Task[]) {
-    this.tasks = tasks;
-    this.fillTable();
-  }
-
   constructor(private dialog: MatDialog) {
   }
 
@@ -57,6 +61,7 @@ export class TasksComponent implements OnInit, AfterViewInit {
     this.dataSource = new MatTableDataSource();
     this.fillTable();
   }
+
 
   ngAfterViewInit() {
     this.addTableObjects();
@@ -107,7 +112,6 @@ export class TasksComponent implements OnInit, AfterViewInit {
     this.dataSource.data = this.tasks;
 
     this.addTableObjects();
-
     this.dataSource.sortingDataAccessor = (task, colName) => {
 
       switch (colName) {
