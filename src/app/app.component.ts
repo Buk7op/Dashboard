@@ -102,4 +102,12 @@ export class AppComponent implements OnInit {
     });
   }
 
+  onCreateCategory(title: string) {
+    const category = new Category(null!, title);
+    this.dataHandler.addCategory(category).subscribe(cat => {
+      this.selectedCategory = cat;
+      this.onSelectCategory(this.selectedCategory);
+    });;
+  }
+
 }

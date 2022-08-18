@@ -7,7 +7,7 @@
         matInput maxlength="15"
         [(ngModel)]="categoryTitle"
         (keydown.enter)="onConfirm()"/>
-        <button *ngIf="categoryTitle.trim().length > 0"
+        <button *ngIf="categoryTitle && categoryTitle.trim().length > 0"
             class="clear-icon"
             mat-button matSuffix mat-icon-button aria-label="Clear"
             (click)="categoryTitle=''">

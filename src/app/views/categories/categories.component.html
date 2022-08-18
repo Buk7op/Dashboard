@@ -3,7 +3,7 @@
     <div class="pt-2">
         <span class="nav-title">Categories</span>
         <span class="add-icon-area">
-            <button mat-icon-button class="add-icon">
+            <button mat-icon-button class="add-icon" (click)="$event.stopPropagation(); openCreateDialog()">
                 <mat-icon>add</mat-icon>
             </button>
         </span>

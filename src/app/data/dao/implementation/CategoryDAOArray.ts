@@ -24,9 +24,19 @@ export class CategoryDAOArray implements CategoryDAO {
         }
         throw new Error("Category not found");
     }
+    
     add(entity: Category): Observable<Category> {
-        throw new Error("Method not implemented.");
+        if(entity.id === null || entity.id === 0){
+            entity.id = this.getLastIdCategory();
+        }
+        TestData.categories.push(entity);
+        return of(entity);
     }
+
+    getLastIdCategory(): number {
+        return Math.max.apply(Math, TestData.tasks.map(task => task.id)) + 1
+    }
+
     update(entity: Category): Observable<Category> {
         const category = TestData.categories.find(c => c.id === entity.id);
         if (category) {

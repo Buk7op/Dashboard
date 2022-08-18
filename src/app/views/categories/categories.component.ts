@@ -18,6 +18,8 @@ export class CategoriesComponent implements OnInit {
   @Output()
   updateCategory = new EventEmitter<Category>();
   @Output()
+  createCategory = new EventEmitter<string>();
+  @Output()
   deleteCategory = new EventEmitter<Category>();
 
   @Input()
@@ -54,6 +56,16 @@ export class CategoriesComponent implements OnInit {
         if(typeof(result) === 'string') {
           category.title = result as string;
           this.updateCategory.emit(category);
+          return;
+        }
+    });
+  }
+
+  openCreateDialog() {
+    const dialogRef = this.dialog.open(EditCategoryDialogComponent, { data: [null!, 'Edit category'], width: '400px', restoreFocus: false });
+    dialogRef.afterClosed().subscribe(result => {
+        if(typeof(result) === 'string') {
+          this.createCategory.emit(result);
           return;
         }
     });

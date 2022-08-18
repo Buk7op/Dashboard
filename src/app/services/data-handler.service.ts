@@ -49,6 +49,10 @@ export class DataHandlerService {
     return this.taskDAO.delete(task.id);
   }
 
+  addCategory(category: Category): Observable<Category> {
+    return this.categoryDAO.add(category);
+  }
+
   updateCategory(category: Category): Observable<Category> {
     return this.categoryDAO.update(category);
   }

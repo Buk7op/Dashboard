@@ -1,6 +1,7 @@
 <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3   bg-gradient-dark" id="sidenav-main">
   <app-categories (selectCategory)="onSelectCategory($event)"
                   (updateCategory)="onUpdateCategory($event)"
+                  (createCategory)="onCreateCategory($event)"
                   (deleteCategory)="onDeleteCategory($event)" 
                   [selectedCategory]="selectedCategory" 
                   [categories]="categories"></app-categories>
