@@ -11,7 +11,7 @@ import { Category } from 'src/app/model/Category';
 export class CategoriesComponent implements OnInit {
   
   @Input()
-  categories!: Category[];
+  categories: Category[];
 
   @Output()
   selectCategory = new EventEmitter<Category>();
@@ -21,6 +21,10 @@ export class CategoriesComponent implements OnInit {
   createCategory = new EventEmitter<string>();
   @Output()
   deleteCategory = new EventEmitter<Category>();
+  @Output()
+  searchCategory = new EventEmitter<string>();
+
+  searchCategoryTitle: string;
 
   @Input()
   selectedCategory: Category;
@@ -71,4 +75,11 @@ export class CategoriesComponent implements OnInit {
     });
   }
 
+  search() {
+    
+    if(this.searchCategoryTitle === null) {
+      return;
+    }
+    this.searchCategory.emit(this.searchCategoryTitle);
+  }
 }

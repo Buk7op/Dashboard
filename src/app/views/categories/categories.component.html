@@ -9,6 +9,30 @@
         </span>
     </div>
     <hr class="horizontal light mt-0 mb-2">
+    <div class="search-category-area px-3">
+        <mat-form-field class="example-full-width">
+            <input
+            #inputSearchCategory
+            (keydown.escape)="searchCategoryTitle = ''; search()"
+            (keyup)="search()"
+            [(ngModel)]="searchCategoryTitle"
+            matInput
+            maxlength="255"
+            placeholder="Search category"/>
+
+            <button
+            (click)="searchCategoryTitle = ''; search()"
+            *ngIf="inputSearchCategory.value.trim().length > 0" aria-label="Clear"
+            class="search-category-button size25 gray"
+            mat-button
+            mat-icon-button
+            matSuffix
+            >
+                <mat-icon>clear</mat-icon>
+            </button>
+        </mat-form-field>
+    </div>
+    <hr class="horizontal light mt-0 mb-2">
     <ul class="navbar-nav">
         <li class="nav-item category" (click)="showTaskByCategory(null!)"  >
             <a class="nav-link pointer" [class.bg-gradient-primary]="selectedCategory === null">

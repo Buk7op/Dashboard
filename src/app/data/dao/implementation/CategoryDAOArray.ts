@@ -6,7 +6,11 @@ import { CategoryDAO } from "../interface/CategoryDAO";
 export class CategoryDAOArray implements CategoryDAO {
 
     search(title: string): Observable<Category[]> {
-        throw new Error("Method not implemented.");
+        let allCategories = TestData.categories;
+        if (title != null) {
+            allCategories = allCategories.filter(cat => cat.title.toUpperCase().includes(title.toUpperCase()));
+        }
+        return of(allCategories);
     }
     get(id: number): Observable<Category> {
         throw new Error("Method not implemented.");
@@ -24,7 +28,7 @@ export class CategoryDAOArray implements CategoryDAO {
         }
         throw new Error("Category not found");
     }
-    
+
     add(entity: Category): Observable<Category> {
         if(entity.id === null || entity.id === 0){
             entity.id = this.getLastIdCategory();

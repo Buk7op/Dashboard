@@ -49,3 +49,12 @@
     font-size: 20px;
     vertical-align: middle;
 }
+
+.search-category-area{
+    font-size: 20px;
+}
+
+.search-category-button {
+    margin-left: 10px;
+    font-size: 25px
+}
