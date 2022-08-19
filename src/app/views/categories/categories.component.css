@@ -44,17 +44,30 @@
     vertical-align: middle;
 }
 
-.add-icon{
+.add-icon {
     cursor: pointer;
     font-size: 20px;
     vertical-align: middle;
 }
 
-.search-category-area{
-    font-size: 20px;
+.search-category-area {
+    font-size: 15px;
 }
 
 .search-category-button {
     margin-left: 10px;
     font-size: 25px
+}
+
+
+::ng-deep .search-category-area .mat-form-field-label {
+    color: #fff !important;
+}
+
+::ng-deep .search-category-area .mat-form-field-underline {
+    background-color: #fff !important;
+}
+
+.search-category-area input{
+    color: #fff;
 }
