@@ -61,13 +61,13 @@
 
 
 ::ng-deep .search-category-area .mat-form-field-label {
-    color: #fff !important;
+    color: #dadada !important;
 }
 
 ::ng-deep .search-category-area .mat-form-field-underline {
-    background-color: #fff !important;
+    background-color: #dadada !important;
 }
 
 .search-category-area input{
-    color: #fff;
+    color: #dadada;
 }
