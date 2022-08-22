@@ -8,6 +8,9 @@ import { TaskDAO } from "../interface/TaskDAO";
 export class TaskDAOArray implements TaskDAO {
 
     search(category: Category, searchText: string, status: boolean, priority: Priority): Observable<Task[]> {
+        return of(this.searchTask(category, searchText, status, priority));
+    }
+    searchTask(category: Category, searchText: string, status: boolean, priority: Priority): Task[] {
         let allTasks = TestData.tasks;
 
         if (status != null) {
@@ -25,12 +28,11 @@ export class TaskDAOArray implements TaskDAO {
         if (searchText != null) {
             allTasks = allTasks.filter(todo => todo.title.toUpperCase().includes(searchText.toUpperCase()));
         }
-        
-        return of(allTasks);
+        return allTasks;
     }
-    
+
     getCompletedCountInCategory(category: Category): Observable<number> {
-        throw new Error("Method not implemented.");
+        return of(this.searchTask(category, null!, true, null!).length);
     }
     getUncompletedCountInCategory(category: Category): Observable<number> {
         throw new Error("Method not implemented.");
@@ -39,21 +41,22 @@ export class TaskDAOArray implements TaskDAO {
         throw new Error("Method not implemented.");
     }
     getTotalCount(category: Category): Observable<number> {
-        throw new Error("Method not implemented.");
+        return of(this.searchTask(category, null!, null!, null!).length);
     }
     get(id: number): Observable<Task> {
         throw new Error("Method not implemented.");
     }
+
     delete(id: number): Observable<Task> {
         const task = TestData.tasks.find(t => t.id === id);
-        if(task) {
+        if (task) {
             TestData.tasks.splice(TestData.tasks.indexOf(task), 1);
             return of(task);
         }
         throw new Error("Task not found");
     }
     add(entity: Task): Observable<Task> {
-        if(entity.id === null || entity.id === 0){
+        if (entity.id === null || entity.id === 0) {
             entity.id = this.getLastIdTask();
         }
         TestData.tasks.push(entity);
@@ -66,8 +69,8 @@ export class TaskDAOArray implements TaskDAO {
 
     update(entity: Task): Observable<Task> {
         const task = TestData.tasks.find(t => t.id === entity.id);
-        if(task) {
-            TestData.tasks.splice(TestData.tasks.indexOf(task), 1,entity)
+        if (task) {
+            TestData.tasks.splice(TestData.tasks.indexOf(task), 1, entity)
             return of(task)
         }
         throw new Error("Task not found");

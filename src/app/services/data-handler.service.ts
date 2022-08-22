@@ -64,4 +64,14 @@ export class DataHandlerService {
   searchCategory(title: string): Observable<Category[]> {
     return this.categoryDAO.search(title);
   }
+
+  getTotalQuantity(category: Category): Observable<number>
+  {
+    return this.taskDAO.getTotalCount(category);
+  }
+
+  getCompletedQuantity(category: Category): Observable<number>
+  {
+    return this.taskDAO.getCompletedCountInCategory(category);
+  }
 }

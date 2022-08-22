@@ -3,6 +3,7 @@ import { Task } from './model/Task';
 import { Category } from "./model/Category";
 import { Priority } from "./model/Priority";
 import { DataHandlerService } from './services/data-handler.service';
+import { zip } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -19,6 +20,9 @@ export class AppComponent implements OnInit {
   priorities: Priority[];
   selectedCategory: Category = null!;
   searchCategoryTitle: string;
+  quantity: number;
+  totalQuantity: number;
+  uncomplitedQuantity: number;
 
   constructor(
     private dataHandler: DataHandlerService,
@@ -37,30 +41,23 @@ export class AppComponent implements OnInit {
 
     this.selectedCategory = category;
 
-    this.dataHandler.searchTasks(
-      this.selectedCategory,
-      null!,
-      null!,
-      null!
-    ).subscribe(tasks => {
-      this.tasks = tasks;
-    });
+    this.updateTaskAndStats()
 
   }
 
   onUpdateTask(task: Task) {
-    this.updateTasks();
+    this.updateTaskAndStats()
   }
 
   onDeleteTask(task: Task) {
     this.dataHandler.deleteTask(task).subscribe(cat => {
-      this.updateTasks()
+      this.updateTaskAndStats()
     });
   }
 
   onAddTask(task: Task) {
     this.dataHandler.addTask(task).subscribe(Task => {
-      this.updateTasks()
+      this.updateTaskAndStats()
     });
   }
 
@@ -114,8 +111,23 @@ export class AppComponent implements OnInit {
   onSearchCategory(title: string) {
     console.log("onSearch")
     this.searchCategoryTitle = title;
-    this.dataHandler.searchCategory(this.searchCategoryTitle).subscribe(categories => {this.categories = categories
-      });
+    this.dataHandler.searchCategory(this.searchCategoryTitle).subscribe(categories => {
+      this.categories = categories
+    });
   }
 
+  updateTaskAndStats() {
+    this.updateTasks();
+    this.updateStats();
+  }
+  
+  updateStats() {
+    zip(this.dataHandler.getTotalQuantity(this.selectedCategory),
+    this.dataHandler.getCompletedQuantity(this.selectedCategory))
+    .subscribe(result => {
+      this.totalQuantity = result[0],
+      this.quantity = result[1],
+      this.uncomplitedQuantity = result[0] - result[1]
+    })
+  }
 }
