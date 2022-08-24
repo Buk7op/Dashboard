@@ -1,9 +1,14 @@
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
+
 namespace TodoApi.DAL.MongoClasses 
 {
     class MongoCategory
     {
-        // public string? Id { get; set; }
-        // public string? Title { get; set; }
-        // public string? Color { get; set; }
+        [BsonId]
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string? Id { get; set; }
+        [BsonElement("title")]
+        public string? Title { get; set; }
     }
 }
