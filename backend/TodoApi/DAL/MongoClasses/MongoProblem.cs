@@ -4,7 +4,7 @@ using TodoApi.Models;
 
 namespace TodoApi.DAL.MongoClasses 
 {
-    class MongoProblem 
+    public class MongoProblem 
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]

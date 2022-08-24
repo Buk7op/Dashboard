@@ -3,7 +3,7 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace TodoApi.DAL.MongoClasses 
 {
-    class MongoCategory
+    public class MongoCategory
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]

@@ -3,9 +3,9 @@ using TodoApi.Models;
 
 namespace TodoApi.DAL
 {
-    internal static class Converter 
+    public static class Converter 
     {
-        public static MongoCategory Convert(this Category category)
+        public static MongoCategory? Convert(this Category category)
         {
             if(category == null)
             {
@@ -18,7 +18,7 @@ namespace TodoApi.DAL
             };
         }
 
-        public static MongoPriority Convert(this Priority priority)
+        public static MongoPriority? Convert(this Priority priority)
         {
             if(priority == null)
             {
@@ -32,7 +32,7 @@ namespace TodoApi.DAL
             };
         }
 
-        public static MongoProblem Convert(this Problem problem)
+        public static MongoProblem? Convert(this Problem problem)
         {
             if(problem == null)
             {
@@ -49,7 +49,7 @@ namespace TodoApi.DAL
             };
         }
 
-        public static Category Convert(this MongoCategory category)
+        public static Category? Convert(this MongoCategory category)
         {
             if(category == null)
             {
@@ -62,7 +62,7 @@ namespace TodoApi.DAL
             };
         }
 
-        public static Priority Convert(this MongoPriority priority)
+        public static Priority? Convert(this MongoPriority priority)
         {
             if(priority == null)
             {
@@ -76,7 +76,7 @@ namespace TodoApi.DAL
             };
         }
 
-        public static Problem Convert(this MongoProblem problem)
+        public static Problem? Convert(this MongoProblem problem)
         {
             if(problem == null)
             {
@@ -91,6 +91,60 @@ namespace TodoApi.DAL
                 Category = problem.Category,
                 Date = problem.Date
             };
+        }
+
+        public static List<Problem>? Convert(this List<MongoProblem>? problems)
+        {
+            if (problems == null)
+            {
+                return null;
+            }
+            var problemsList = new List<Problem>();
+            foreach (var i in problems)
+            {
+                var converted = i.Convert();
+                if (converted != null)
+                {
+                    problemsList.Add(converted);
+                }
+            }
+            return problemsList;
+        }
+
+        public static List<Priority>? Convert(this List<MongoPriority>? priority)
+        {
+            if (priority == null)
+            {
+                return null;
+            }
+            var priorityList = new List<Priority>();
+            foreach (var i in priority)
+            {
+                var converted = i.Convert();
+                if (converted != null)
+                {
+                    priorityList.Add(converted);
+                }
+            }
+            return priorityList;
+        }
+
+        public static List<Category>? Convert(this List<MongoCategory>? category)
+        {
+            if (category == null)
+            {
+                return null;
+            }
+            var categoryList = new List<Category>();
+            foreach (var i in category)
+            {
+                var converted = i.Convert();
+                if (converted != null)
+                {
+                    categoryList.Add(converted);
+                }
+            }
+            return categoryList;
         }
     }
 }
