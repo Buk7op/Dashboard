@@ -11,6 +11,7 @@ namespace TodoApi.DAL
         private const string PROBLEMS_COLLECTION_NAME = "Tasks";
         private const string PRIORITY_COLLECTION_NAME = "Priorities";
         private const string CATEGORY_COLLECTION_NAME = "Categories";
+        private const string DB_NAME = "TodoApp";
         private readonly MongoClient _client;
         private readonly IMongoDatabase _db;
         private readonly IMongoCollection<MongoProblem> _problemsCollection;
@@ -20,7 +21,7 @@ namespace TodoApi.DAL
         public DBAccessor(DbSettings dbSettings)
         {
             _client = new MongoClient(dbSettings.ConnectionString);
-            _db = _client.GetDatabase("dashboardDb");
+            _db = _client.GetDatabase(DB_NAME);
             _problemsCollection = _db.GetCollection<MongoProblem>(PROBLEMS_COLLECTION_NAME);
             _priorityCollection = _db.GetCollection<MongoPriority>(PRIORITY_COLLECTION_NAME);
             _categoryCollection = _db.GetCollection<MongoCategory>(CATEGORY_COLLECTION_NAME);
@@ -78,6 +79,13 @@ namespace TodoApi.DAL
                 throw new FormatException("Task cannot be null");
             }
         }
+
+        public async Task<Problem> GetTaskById(string id)
+        {
+            var filter = Builders<MongoProblem>.Filter.Where(p => p.Id == id);
+            var task = (await _problemsCollection.FindAsync(filter)).FirstOrDefault();
+            return task.Convert() ?? throw new FormatException($"Not found task with {id} id");
+        } 
 
     }
 }

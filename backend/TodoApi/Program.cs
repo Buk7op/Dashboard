@@ -1,5 +1,6 @@
 using Microsoft.Extensions.Options;
 using TodoApi.Infrastructure;
+using TodoApi.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,7 +9,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 var services = builder.Services;
 services.ConfigureDbSettings(builder.Configuration.GetSection("MongoDB"));
-
+services.AddSingleton<ITaskService, TaskService>();
 
 
 
