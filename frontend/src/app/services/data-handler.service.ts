@@ -15,9 +15,8 @@ export class DataHandlerService {
   
   private taskDAO = new TaskDAOArray();
   private categoryDAO = new CategoryDAOArray();
-  private priorityDAO = new PriorityDAOArray();
 
-  constructor() { 
+  constructor(private priorityDAO: PriorityDAOArray) { 
     
   }
 

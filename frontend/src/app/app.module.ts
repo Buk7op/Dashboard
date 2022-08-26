@@ -27,6 +27,7 @@ import { FooterComponent } from './views/footer/footer.component';
 import { HeaderComponent } from './views/header/header.component';
 import { StatComponent } from './views/stat/stat.component';
 import { StatCardComponent } from './views/stat/stat-card/stat-card.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { StatCardComponent } from './views/stat/stat-card/stat-card.component';
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MatDialogModule,
