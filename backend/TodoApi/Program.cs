@@ -11,6 +11,9 @@ builder.Services.AddSwaggerGen();
 var services = builder.Services;
 services.ConfigureDbSettings(builder.Configuration.GetSection("MongoDB"));
 services.AddSingleton<ITaskService, TaskService>();
+services.AddSingleton<ICategoryService, CategoryService>();
+services.AddSingleton<IPriorityService, PriorityService>();
+services.AddCors();
 
 
 var app = builder.Build();
@@ -95,6 +98,10 @@ app.MapGet("api/v1/priorities", async (IPriorityService priorityService) => {
     var priorities = await priorityService.GetAllPriorities();
     return Results.Ok(priorities);
 });
+
+ app.UseCors(builder => builder
+ .AllowAnyOrigin()
+);
 
 app.Run();
 
