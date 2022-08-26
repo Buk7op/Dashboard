@@ -39,7 +39,7 @@ namespace TodoApi.DAL
             return categories.ToList().Convert();
         }
 
-        public async Task<List<Priority>?> GetAllPriority() 
+        public async Task<List<Priority>?> GetAllPriorities() 
         {
             var priorities = await _priorityCollection.FindAsync(new BsonDocument());
             return priorities.ToList().Convert();

@@ -91,6 +91,10 @@ app.MapPut("api/v1/categories", async (ICategoryService categoryService, Categor
     return Results.BadRequest();
 });
 
+app.MapGet("api/v1/priorities", async (IPriorityService priorityService) => {
+    var priorities = await priorityService.GetAllPriorities();
+    return Results.Ok(priorities);
+});
 
 app.Run();
 
