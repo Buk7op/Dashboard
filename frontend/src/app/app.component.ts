@@ -63,7 +63,7 @@ export class AppComponent implements OnInit {
 
   onUpdateCategory(category: Category) {
     this.dataHandler.updateCategory(category).subscribe(() => {
-      this.onSearchCategory(this.searchCategoryTitle);
+      //this.onSearchCategory(this.searchCategoryTitle);
     });
   }
 

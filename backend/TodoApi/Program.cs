@@ -89,7 +89,7 @@ app.MapPut("api/v1/categories", async (ICategoryService categoryService, Categor
     var updatedCategory = await categoryService.UpdateCategory(category);
     if(updatedCategory != null)
     {
-        return Results.Ok();
+        return Results.Ok(updatedCategory);
     }
     return Results.BadRequest();
 });
@@ -101,6 +101,8 @@ app.MapGet("api/v1/priorities", async (IPriorityService priorityService) => {
 
  app.UseCors(builder => builder
  .AllowAnyOrigin()
+ .AllowAnyMethod()
+ .AllowAnyHeader()
 );
 
 app.Run();

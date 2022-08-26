@@ -11,12 +11,10 @@ import { PriorityDAO } from "../interface/PriorityDAO";
     providedIn: 'root'
   })
 export class PriorityDAOArray implements PriorityDAO {
-
+    prioritiesUrl = 'http://localhost:5268/api/v1/priorities';
     constructor(private http: HttpClient) {
         
     }
-
-    prioritiesUrl = 'http://localhost:5268/api/v1/priorities';
 
     get(id: number): Observable<Priority> {
         throw new Error("Method not implemented.");

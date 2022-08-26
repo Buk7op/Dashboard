@@ -14,9 +14,8 @@ import { Task } from '../model/Task';
 export class DataHandlerService {
   
   private taskDAO = new TaskDAOArray();
-  private categoryDAO = new CategoryDAOArray();
 
-  constructor(private priorityDAO: PriorityDAOArray) { 
+  constructor(private priorityDAO: PriorityDAOArray, private categoryDAO: CategoryDAOArray) { 
     
   }
 
