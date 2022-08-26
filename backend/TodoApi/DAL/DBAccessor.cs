@@ -33,7 +33,7 @@ namespace TodoApi.DAL
             return tasks.ToList().Convert();
         }
 
-        public async Task<List<Category>?> GetAllCategory() 
+        public async Task<List<Category>?> GetAllCategories() 
         {
             var categories = await _categoryCollection.FindAsync(new BsonDocument());
             return categories.ToList().Convert();
@@ -59,10 +59,30 @@ namespace TodoApi.DAL
             }
         }
 
+        public async Task<Category?> AddCategory(Category category)
+        {
+            var mongoCategory = category.Convert();
+            if(mongoCategory != null) 
+            {
+                await _categoryCollection.InsertOneAsync(mongoCategory);
+                return mongoCategory.Convert();
+            }
+            else
+            {
+                throw new FormatException("Category cannot be null");
+            }
+        }
+
         public async Task DeleteTaskById(string id)
         {
             var filter = Builders<MongoProblem>.Filter.Where(p => p.Id == id);
             await _problemsCollection.DeleteOneAsync(filter);
+        }
+
+        public async Task DeleteCategoryById(string id)
+        {
+            var filter = Builders<MongoCategory>.Filter.Where(p => p.Id == id);
+            await _categoryCollection.DeleteOneAsync(filter);
         }
 
         public async Task<Problem?> UpdateTask(Problem task)
@@ -72,6 +92,21 @@ namespace TodoApi.DAL
             if(mongoTask != null) 
             {
                 var createdTask = await _problemsCollection.FindOneAndReplaceAsync(filter, mongoTask, new FindOneAndReplaceOptions<MongoProblem, MongoProblem> { IsUpsert = true, ReturnDocument = ReturnDocument.After});
+                return createdTask.Convert();
+            }
+            else
+            {
+                throw new FormatException("Task cannot be null");
+            }
+        }
+
+        public async Task<Category?> UpdateCategory(Category category)
+        {
+            var mongoCategory = category.Convert();
+            var filter = Builders<MongoCategory>.Filter.Where(p => p.Id == category.Id);
+            if(mongoCategory != null) 
+            {
+                var createdTask = await _categoryCollection.FindOneAndReplaceAsync(filter, mongoCategory, new FindOneAndReplaceOptions<MongoCategory, MongoCategory> { IsUpsert = true, ReturnDocument = ReturnDocument.After});
                 return createdTask.Convert();
             }
             else

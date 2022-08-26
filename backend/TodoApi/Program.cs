@@ -61,5 +61,36 @@ app.MapPut("api/v1/tasks", async (ITaskService taskService, Problem task) => {
     return Results.BadRequest();
 });
 
+
+
+app.MapGet("api/v1/categories", async (ICategoryService categoryService) => {
+    var categories = await categoryService.GetAllCategories();
+    return Results.Ok(categories);
+});
+
+app.MapPost("api/v1/categories", async (ICategoryService categoryService, Category category) => {
+    var createdCategory =  await categoryService.AddCategory(category);
+    if(createdCategory != null)
+    {
+        return Results.Ok(createdCategory);
+    }
+    return Results.BadRequest();
+});
+
+app.MapDelete("api/v1/categories/{id}", async (ICategoryService categoryService, string id) => {
+    await categoryService.DeleteCategory(id);
+    return Results.Ok();
+});
+
+app.MapPut("api/v1/categories", async (ICategoryService categoryService, Category category) => {
+    var updatedCategory = await categoryService.UpdateCategory(category);
+    if(updatedCategory != null)
+    {
+        return Results.Ok();
+    }
+    return Results.BadRequest();
+});
+
+
 app.Run();
 
