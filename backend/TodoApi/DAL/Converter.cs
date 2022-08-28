@@ -146,5 +146,23 @@ namespace TodoApi.DAL
             }
             return categoryList;
         }
+
+        public static List<MongoCategory>? Convert(this List<Category>? category)
+        {
+            if (category == null)
+            {
+                return null;
+            }
+            var categoryList = new List<MongoCategory>();
+            foreach (var i in category)
+            {
+                var converted = i.Convert();
+                if (converted != null)
+                {
+                    categoryList.Add(converted);
+                }
+            }
+            return categoryList;
+        }
     }
 }

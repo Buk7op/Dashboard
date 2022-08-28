@@ -131,5 +131,12 @@ namespace TodoApi.DAL
             return task.Convert() ?? throw new FormatException($"Not found task with {id} id");
         } 
 
+        public async Task<List<Category>> GetCategoryByTitle(string title)
+        {
+            var filter = Builders<MongoCategory>.Filter.Where(p => p.Title!.ToLowerInvariant().Contains(title.ToLowerInvariant()));
+            var category = await (await _categoryCollection.FindAsync(filter)).ToListAsync();
+            return category.Convert() ?? new List<Category>();
+        } 
+
     }
 }

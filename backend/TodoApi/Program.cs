@@ -71,6 +71,11 @@ app.MapGet("api/v1/categories", async (ICategoryService categoryService) => {
     return Results.Ok(categories);
 });
 
+app.MapGet("api/v1/categories/{title}", async (ICategoryService categoryService, string title) => {
+    var categories = await categoryService.GetCategoriesByTitle(title);
+    return Results.Ok(categories);
+});
+
 app.MapPost("api/v1/categories", async (ICategoryService categoryService, Category category) => {
     var createdCategory =  await categoryService.AddCategory(category);
     if(createdCategory != null)

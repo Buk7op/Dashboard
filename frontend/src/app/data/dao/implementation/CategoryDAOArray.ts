@@ -17,13 +17,7 @@ export class CategoryDAOArray implements CategoryDAO {
     }
     
     search(title: string): Observable<Category[]> {
-        this.http.get<Category[]>(this.categoriesUrl).subscribe((response) => {
-            this.allCategories = response;
-            if (title != null) {
-                this.allCategories = this.allCategories.filter(cat => cat.title.toUpperCase().includes(title.toUpperCase()));
-            }
-        });
-        return of(this.allCategories);
+        return this.http.get<Category[]>(this.categoriesUrl + `/${title}`);
     }
 
     get(id: number): Observable<Category> {

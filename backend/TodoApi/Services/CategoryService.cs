@@ -21,7 +21,19 @@ namespace TodoApi.Services
         } 
 
         public async Task<List<Category>?> GetAllCategories() => await _dbAccessor.GetAllCategories();
-        
+
+        public async Task<List<Category>?> GetCategoriesByTitle(string title)
+        {
+            if(String.IsNullOrEmpty(title))
+            {
+                return await GetAllCategories();
+            } 
+            else
+            {
+                return await  _dbAccessor.GetCategoryByTitle(title);
+            }
+        }
+
         public async Task<Category?> UpdateCategory(Category category) => await _dbAccessor.UpdateCategory(category);
         
     }
