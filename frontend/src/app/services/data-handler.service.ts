@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { BehaviorSubject, from, Observable, Subject } from 'rxjs';
 import { CategoryDAOArray } from '../data/dao/implementation/CategoryDAOArray';
 import { PriorityDAOArray } from '../data/dao/implementation/PriorityDAOArray';
 import { TaskDAOArray } from '../data/dao/implementation/TaskDAOArray';
@@ -12,10 +12,8 @@ import { Task } from '../model/Task';
   providedIn: 'root'
 })
 export class DataHandlerService {
-  
-  private taskDAO = new TaskDAOArray();
 
-  constructor(private priorityDAO: PriorityDAOArray, private categoryDAO: CategoryDAOArray) { 
+  constructor(private priorityDAO: PriorityDAOArray, private categoryDAO: CategoryDAOArray, private taskDAO: TaskDAOArray) { 
     
   }
 
@@ -65,11 +63,11 @@ export class DataHandlerService {
 
   getTotalQuantity(category: Category): Observable<number>
   {
-    return this.taskDAO.getTotalCount(category);
+    return from(this.taskDAO.getTotalCount(category));
   }
 
   getCompletedQuantity(category: Category): Observable<number>
   {
-    return this.taskDAO.getCompletedCountInCategory(category);
+    return from(this.taskDAO.getCompletedCountInCategory(category));
   }
 }

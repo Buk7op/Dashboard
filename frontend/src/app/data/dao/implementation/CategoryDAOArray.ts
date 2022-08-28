@@ -9,8 +9,7 @@ import { CategoryDAO } from "../interface/CategoryDAO";
     providedIn: 'root'
   })
 export class CategoryDAOArray implements CategoryDAO {
-    categoriesUrl = 'http://localhost:5268/api/v1/categories';
-    allCategories: Category[];
+    categoriesUrl = 'http://localhost:5268/api/v1/categories'
 
     constructor(private http: HttpClient) {
     

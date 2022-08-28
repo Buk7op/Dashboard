@@ -46,7 +46,11 @@ export class AppComponent implements OnInit {
   }
 
   onUpdateTask(task: Task) {
-    this.updateTaskAndStats()
+
+    this.dataHandler.updateTask(task).subscribe(() => {
+      this.updateTaskAndStats()
+    });
+
   }
 
   onDeleteTask(task: Task) {

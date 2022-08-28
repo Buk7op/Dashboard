@@ -1,24 +1,35 @@
-import { Observable, of, scheduled } from "rxjs";
+import { HttpClient } from "@angular/common/http";
+import { Injectable } from "@angular/core";
+import { from, Observable, of, scheduled } from "rxjs";
 import { Category } from "src/app/model/Category";
 import { Priority } from "src/app/model/Priority";
 import { Task } from "src/app/model/Task";
 import { TestData } from "../../TestData";
 import { TaskDAO } from "../interface/TaskDAO";
 
+@Injectable({
+    providedIn: 'root'
+  })
 export class TaskDAOArray implements TaskDAO {
+    tasksUrl = 'http://localhost:5268/api/v1/tasks'
+
+    constructor(private http: HttpClient) {
+        
+    }
 
     search(category: Category, searchText: string, status: boolean, priority: Priority): Observable<Task[]> {
-        return of(this.searchTask(category, searchText, status, priority));
+        return from(this.searchTask(category, searchText, status, priority));
     }
-    searchTask(category: Category, searchText: string, status: boolean, priority: Priority): Task[] {
-        let allTasks = TestData.tasks;
+
+    async searchTask(category: Category, searchText: string, status: boolean, priority: Priority): Promise<Task[]> {
+        let allTasks = await this.http.get<Task[]>(this.tasksUrl).toPromise();
 
         if (status != null) {
             allTasks = allTasks.filter(todo => todo.completed === status);
         }
 
         if (category != null) {
-            allTasks = allTasks.filter(todo => todo.category === category);
+            allTasks = allTasks.filter(todo => todo.category?.id === category.id);
         }
 
         if (priority != null) {
@@ -31,8 +42,8 @@ export class TaskDAOArray implements TaskDAO {
         return allTasks;
     }
 
-    getCompletedCountInCategory(category: Category): Observable<number> {
-        return of(this.searchTask(category, null!, true, null!).length);
+    async getCompletedCountInCategory(category: Category): Promise<number> {
+        return (await this.searchTask(category, null!, true, null!)).length;
     }
     getUncompletedCountInCategory(category: Category): Observable<number> {
         throw new Error("Method not implemented.");
@@ -40,44 +51,26 @@ export class TaskDAOArray implements TaskDAO {
     getTotalCountInCategory(category: Category): Observable<number> {
         throw new Error("Method not implemented.");
     }
-    getTotalCount(category: Category): Observable<number> {
-        return of(this.searchTask(category, null!, null!, null!).length);
+    async getTotalCount(category: Category): Promise<number> {
+        return (await this.searchTask(category, null!, true, null!)).length;
     }
     get(id: number): Observable<Task> {
         throw new Error("Method not implemented.");
     }
 
     delete(id: number): Observable<Task> {
-        const task = TestData.tasks.find(t => t.id === id);
-        if (task) {
-            TestData.tasks.splice(TestData.tasks.indexOf(task), 1);
-            return of(task);
-        }
-        throw new Error("Task not found");
+        return this.http.delete<any>(this.tasksUrl+`/${id}`);
     }
     add(entity: Task): Observable<Task> {
-        if (entity.id === null || entity.id === 0) {
-            entity.id = this.getLastIdTask();
-        }
-        TestData.tasks.push(entity);
-        return of(entity);
-    }
-
-    getLastIdTask(): number {
-        return Math.max.apply(Math, TestData.tasks.map(task => task.id)) + 1
+        return this.http.post<Task>(this.tasksUrl, entity);
     }
 
     update(entity: Task): Observable<Task> {
-        const task = TestData.tasks.find(t => t.id === entity.id);
-        if (task) {
-            TestData.tasks.splice(TestData.tasks.indexOf(task), 1, entity)
-            return of(task)
-        }
-        throw new Error("Task not found");
+        return this.http.put<Task>(this.tasksUrl, entity);
     }
 
     getAll(): Observable<Task[]> {
-        return of(TestData.tasks);
+        return this.http.get<Task[]>(this.tasksUrl);
     }
 
 }
