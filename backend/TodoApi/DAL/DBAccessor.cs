@@ -85,6 +85,15 @@ namespace TodoApi.DAL
             await _categoryCollection.DeleteOneAsync(filter);
         }
 
+        public async Task DeleteCategoryFromTask(string id)
+        {
+            var filter = Builders<MongoProblem>.Filter.Where(p => p.Category!.Id == id);
+            var updates = new List<UpdateDefinition<MongoProblem>>();
+            var update = Builders<MongoProblem>.Update;
+            updates.Add(update.Set(t => t.Category, null));
+            await _problemsCollection.UpdateManyAsync(filter, update.Combine(updates));
+        }
+
         public async Task<Problem?> UpdateTask(Problem task)
         {
             var mongoTask = task.Convert();

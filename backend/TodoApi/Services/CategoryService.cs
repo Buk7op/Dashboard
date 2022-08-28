@@ -15,7 +15,10 @@ namespace TodoApi.Services
         }
         public async Task<Category?> AddCategory(Category category) => await _dbAccessor.AddCategory(category);
         
-        public async Task DeleteCategory(string id) => await _dbAccessor.DeleteCategoryById(id);
+        public async Task DeleteCategory(string id){
+            await _dbAccessor.DeleteCategoryById(id);
+            await _dbAccessor.DeleteCategoryFromTask(id);
+        } 
 
         public async Task<List<Category>?> GetAllCategories() => await _dbAccessor.GetAllCategories();
         
