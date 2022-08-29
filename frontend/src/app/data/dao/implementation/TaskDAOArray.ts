@@ -17,7 +17,7 @@ export class TaskDAOArray implements TaskDAO {
     constructor(private http: HttpClient) {
         
     }
-    
+
     async setupSearch() {
         this.allTasks = await this.getAll().toPromise();
     }
@@ -42,7 +42,7 @@ export class TaskDAOArray implements TaskDAO {
         }
 
         if (priority != null) {
-            tasks = tasks.filter(todo => todo.priority === priority);
+            tasks = tasks.filter(todo => todo.priority?.id === priority.id);
         }
 
         if (searchText != null) {
