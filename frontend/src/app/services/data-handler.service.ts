@@ -70,4 +70,9 @@ export class DataHandlerService {
   {
     return from(this.taskDAO.getCompletedCountInCategory(category));
   }
+
+  setupSearch() {
+    this.categoryDAO.setupSearch();
+  }
+
 }

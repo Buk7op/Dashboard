@@ -23,6 +23,8 @@ export class CategoriesComponent implements OnInit {
   deleteCategory = new EventEmitter<Category>();
   @Output()
   searchCategory = new EventEmitter<string>();
+  @Output()
+  setupSearch = new EventEmitter<null>();
 
   searchCategoryTitle: string;
 
@@ -73,6 +75,11 @@ export class CategoriesComponent implements OnInit {
           return;
         }
     });
+  }
+
+
+  loadSearchData() {
+    this.setupSearch.emit();
   }
 
   search() {

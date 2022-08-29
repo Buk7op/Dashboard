@@ -52,7 +52,7 @@ export class TaskDAOArray implements TaskDAO {
         throw new Error("Method not implemented.");
     }
     async getTotalCount(category: Category): Promise<number> {
-        return (await this.searchTask(category, null!, true, null!)).length;
+        return (await this.searchTask(category, null!, null!, null!)).length;
     }
     get(id: number): Observable<Task> {
         throw new Error("Method not implemented.");

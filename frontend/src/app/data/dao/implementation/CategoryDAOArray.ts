@@ -10,13 +10,20 @@ import { CategoryDAO } from "../interface/CategoryDAO";
   })
 export class CategoryDAOArray implements CategoryDAO {
     categoriesUrl = 'http://localhost:5268/api/v1/categories'
+    allCategories: Category[];
 
     constructor(private http: HttpClient) {
     
     }
-    
+    setupSearch() {
+        this.getAll().subscribe(categories => this.allCategories = categories);
+    }
+
     search(title: string): Observable<Category[]> {
-        return this.http.get<Category[]>(this.categoriesUrl + `/${title}`);
+        if (title != null) {
+            return of(this.allCategories.filter(cat => cat.title.toUpperCase().includes(title.toUpperCase())));
+        }
+        return of(this.allCategories);
     }
 
     get(id: number): Observable<Category> {

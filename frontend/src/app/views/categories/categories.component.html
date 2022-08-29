@@ -14,6 +14,7 @@
                 #inputSearchCategory
                 (keydown.escape)="searchCategoryTitle = ''; search()"
                 (keyup)="search()"
+                (click)="loadSearchData()"
                 [(ngModel)]="searchCategoryTitle"
                 matInput
                 maxlength="255"

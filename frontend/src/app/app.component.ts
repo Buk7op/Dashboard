@@ -134,4 +134,8 @@ export class AppComponent implements OnInit {
       this.uncomplitedQuantity = result[0] - result[1]
     })
   }
+
+  onSetupSearch() {
+    this.dataHandler.setupSearch();
+  }
 }
