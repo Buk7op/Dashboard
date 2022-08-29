@@ -67,14 +67,14 @@ export class AppComponent implements OnInit {
 
   onUpdateCategory(category: Category) {
     this.dataHandler.updateCategory(category).subscribe(() => {
-      //this.onSearchCategory(this.searchCategoryTitle);
+      
     });
   }
 
   onDeleteCategory(category: Category) {
     this.dataHandler.deleteCategory(category).subscribe(cat => {
       this.selectedCategory = null!;
-      this.onSearchCategory(this.searchCategoryTitle);
+      this.updateCategories();
     });
   }
 
@@ -107,9 +107,14 @@ export class AppComponent implements OnInit {
   onCreateCategory(title: string) {
     const category = new Category(null!, title);
     this.dataHandler.addCategory(category).subscribe(cat => {
+      this.updateCategories();
       this.selectedCategory = cat;
       this.onSelectCategory(this.selectedCategory);
     });;
+  }
+
+  private updateCategories() {
+    this.dataHandler.getAllCategories().subscribe(categories => this.categories = categories);
   }
 
   onSearchCategory(title: string) {
