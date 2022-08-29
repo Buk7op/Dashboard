@@ -1,8 +1,13 @@
 <div class="row mx-4">
     <div class="col-md-3 col-sm-12 text-right">
         <mat-form-field>
-            <input #filterInput (keydown.escape)="searchTaskText= ''; onFilterByTitle()" (keyup)="onFilterByTitle()"
-                [(ngModel)]="searchTaskText" matInput placeholder="Search" />
+            <input #filterInput 
+            (keydown.escape)="searchTaskText= ''; onFilterByTitle()"
+            (keyup)="onFilterByTitle()"
+            [(ngModel)]="searchTaskText" 
+            matInput 
+            placeholder="Search" 
+            (click)="setupSearch()"/>
             <button (click)="searchTaskText= ''; onFilterByTitle()" *ngIf="filterInput.value.trim().length > 0"
                 aria-label="Clear" class="clear-icon size25 gray" mat-button mat-icon-button matSuffix>
                 <mat-icon>clear</mat-icon>
@@ -13,7 +18,8 @@
     <div class="col-md-3 col-sm-12 text-right">
         <mat-form-field>
             <mat-select #statusFilter (valueChange)="onFilterByStatus($event)" [value]="selectedStatusFilter"
-                placeholder="Filter by status">
+                placeholder="Filter by status"
+                (click)="setupSearch()">
                 <mat-option [value]="null">All</mat-option>
                 <mat-option [value]="true">Done</mat-option>
                 <mat-option [value]="false">In progress</mat-option>
@@ -27,7 +33,9 @@
 
     <div class="col-md-3 col-sm-12 text-right">
         <mat-form-field>
-            <mat-select [value]="selectedPriorityFilter" (valueChange)="onFilterByPriority($event)" placeholder="Filter by priority">
+            <mat-select [value]="selectedPriorityFilter" (valueChange)="onFilterByPriority($event)" 
+            placeholder="Filter by priority"
+            (click)="setupSearch()">
                 <mat-option [value]="null">All</mat-option>
                 <mat-option *ngFor="let priority of priorities" [value]="priority">{{priority.title}}</mat-option>
             </mat-select>

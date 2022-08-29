@@ -43,6 +43,7 @@
                         (filterByStatus)="onFilterTaskByStatus($event)"
                         (filterByTitle)="onFilterTaskByTitle($event)"
                         (filterByPriority)="onFilterTaskByPriority($event)"
+                        (initSearch)="onInitTaskSearch()"
                         [selectedCategory]="selectedCategory"
                         [tasks]="tasks"
                         [priorities]="priorities"></app-tasks>

@@ -51,6 +51,8 @@ export class TasksComponent implements OnInit, AfterViewInit {
   filterByStatus = new EventEmitter<boolean>();
   @Output()
   filterByPriority = new EventEmitter<Priority>();
+  @Output()
+  initSearch = new EventEmitter<boolean>();
 
   tasks!: Task[];
   searchTaskText: string;
@@ -141,6 +143,10 @@ export class TasksComponent implements OnInit, AfterViewInit {
   addTableObjects() {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
+  }
+
+  setupSearch() {
+    this.initSearch.emit();
   }
 
   openEditTaskDialog(task: Task): void {

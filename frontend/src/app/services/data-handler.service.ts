@@ -71,8 +71,11 @@ export class DataHandlerService {
     return from(this.taskDAO.getCompletedCountInCategory(category));
   }
 
-  setupSearch() {
+  setupCategorySearch() {
     this.categoryDAO.setupSearch();
   }
 
+  setupTaskSearch() {
+    this.taskDAO.setupSearch();
+  }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { Task } from './model/Task';
 import { Category } from "./model/Category";
 import { Priority } from "./model/Priority";
@@ -10,7 +10,7 @@ import { zip } from 'rxjs';
   templateUrl: 'app.component.html',
   styles: []
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, AfterViewInit {
   private title = 'Todo';
   private searchTaskText = '';
   private priorityFilter: Priority;
@@ -29,13 +29,18 @@ export class AppComponent implements OnInit {
   ) {
   }
 
+  ngAfterViewInit(): void {
+    this.onSelectCategory(null!);
+  }
+
   ngOnInit(): void {
     this.dataHandler.getAllPriorities().subscribe(priorities => this.priorities = priorities);
     this.dataHandler.getAllCategories().subscribe(categories => this.categories = categories);
 
-    this.onSelectCategory(null!);
+    
 
   }
+
 
   onSelectCategory(category: Category) {
 
@@ -93,7 +98,7 @@ export class AppComponent implements OnInit {
     this.updateTasks();
   }
 
-  updateTasks() {
+  async updateTasks() {
     this.dataHandler.searchTasks(
       this.selectedCategory,
       this.searchTaskText,
@@ -102,6 +107,10 @@ export class AppComponent implements OnInit {
     ).subscribe((tasks: Task[]) => {
       this.tasks = tasks;
     });
+  }
+
+  onInitTaskSearch() {
+    this.dataHandler.setupTaskSearch();
   }
 
   onCreateCategory(title: string) {
@@ -141,6 +150,6 @@ export class AppComponent implements OnInit {
   }
 
   onSetupSearch() {
-    this.dataHandler.setupSearch();
+    this.dataHandler.setupCategorySearch();
   }
 }

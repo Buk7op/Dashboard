@@ -12,9 +12,14 @@ import { TaskDAO } from "../interface/TaskDAO";
   })
 export class TaskDAOArray implements TaskDAO {
     tasksUrl = 'http://localhost:5268/api/v1/tasks'
+    allTasks: Task[];
 
     constructor(private http: HttpClient) {
         
+    }
+    
+    async setupSearch() {
+        this.allTasks = await this.getAll().toPromise();
     }
 
     search(category: Category, searchText: string, status: boolean, priority: Priority): Observable<Task[]> {
@@ -22,24 +27,28 @@ export class TaskDAOArray implements TaskDAO {
     }
 
     async searchTask(category: Category, searchText: string, status: boolean, priority: Priority): Promise<Task[]> {
-        let allTasks = await this.http.get<Task[]>(this.tasksUrl).toPromise();
+        if(this.allTasks == undefined) {
+            await this.setupSearch();
+        }
+
+        let tasks = this.allTasks;
 
         if (status != null) {
-            allTasks = allTasks.filter(todo => todo.completed === status);
+            tasks = tasks.filter(todo => todo.completed === status);
         }
 
         if (category != null) {
-            allTasks = allTasks.filter(todo => todo.category?.id === category.id);
+            tasks = tasks.filter(todo => todo.category?.id === category.id);
         }
 
         if (priority != null) {
-            allTasks = allTasks.filter(todo => todo.priority === priority);
+            tasks = tasks.filter(todo => todo.priority === priority);
         }
 
         if (searchText != null) {
-            allTasks = allTasks.filter(todo => todo.title.toUpperCase().includes(searchText.toUpperCase()));
+            tasks = tasks.filter(todo => todo.title.toUpperCase().includes(searchText.toUpperCase()));
         }
-        return allTasks;
+        return tasks;
     }
 
     async getCompletedCountInCategory(category: Category): Promise<number> {
